@@ -1,0 +1,12 @@
+name: Freeboard
+slug: freeboard
+type: bundle
+description: Freeboard is a canvas for your ideas.
+version: current
+env_file: config/freeboard/.env
+files:
+  schema.json: config/freeboard/schema.json
+  plug.schema.json: config/freeboard/plug.schema.json
+  server.js: source/backend/freeboard/server.js
+  client.js: source/frontend/build/freeboard.js
+  client.css: source/frontend/build/freeboard.css

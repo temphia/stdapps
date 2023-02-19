@@ -1,0 +1,10 @@
+{
+  "type": "bundle",
+  "items": [
+    {
+      "name": "freeboard_app",
+      "type": "plug",
+      "file": "plug.schema.json"
+    }
+  ]
+}
