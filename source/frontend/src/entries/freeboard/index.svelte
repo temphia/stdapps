@@ -1,5 +1,6 @@
 <script lang="ts">
-  import Freeboard from "./freeboard.svelte";
+  import Tailwind from "../common/tailwind.svelte";
+import Freeboard from "./freeboard.svelte";
   export let env: any;
 
   const blocks = [
@@ -76,3 +77,5 @@
 </script>
 
 <Freeboard {blocks} {boards} {links} />
+
+<Tailwind />

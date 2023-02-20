@@ -19,8 +19,8 @@
   {#if boards}
     {#each boards as board}
       <div class="relative mx-auto w-full">
-        <a
-          href="#"
+        <div
+
           on:click={() => {
             onClick(board);
           }}
@@ -48,7 +48,7 @@
               </p>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     {/each}
   {:else}
