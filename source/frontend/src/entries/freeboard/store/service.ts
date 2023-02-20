@@ -1,7 +1,7 @@
 import { get, Writable } from "svelte/store";
 import { writable } from "svelte/store";
 import type { Board, DataSchema, IStore } from "./boardtypes";
-import { LocalStore } from "./store";
+import { MemStore } from "./store";
 
 interface UiState {
   link_start_name: string | null;
@@ -18,7 +18,7 @@ export class FreeBoardService {
   _modal_open: any;
 
   constructor() {
-    this.backend_provider = new LocalStore();
+    this.backend_provider = new MemStore();
     this.schema_store = writable({
       boards: [],
       plug_version: 0,
