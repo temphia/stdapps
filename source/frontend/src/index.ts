@@ -1,4 +1,4 @@
-import Playground from "./entry/play/index.svelte";
+import Playground from "./entries/play/index.svelte";
 
 const __svelte_app__ = new Playground({
   target: document.body,

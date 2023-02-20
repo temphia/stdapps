@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
   import Freeboard from "./freeboard.svelte";
+  export let env: any;
 
   const blocks = [
     {
