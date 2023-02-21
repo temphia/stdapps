@@ -63,7 +63,7 @@
     "svelte-simple-modal": "^0.6.1",
     "svelte-split-pane": "^0.1.2",
     "svelte-tooltip": "^1.2.0",
-    "temphia-ui": "https://gitpkg.now.sh/temphia/core/frontend?4be4071db41fcd62a7c47524cdd1ce81c832c802",
+    "temphia-frontend": "https://gitpkg.now.sh/temphia/temphia/code/frontend?dev2",
     "xterm": "^5.0.0",
     "yootils": "0.0.17"
   }

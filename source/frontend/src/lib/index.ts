@@ -1,10 +1,4 @@
-import type {
-  FactoryOptions,
-  ActionResponse,
-  Environment,
-} from "temphia-ui/dist/cjs/lib/engine";
+import type { Environment } from "temphia-frontend/dist/cjs/engine/env";
+import { registerPlugFactory } from "temphia-frontend/dist/cjs/engine/register";
 
-import { registerPlugFactory } from "temphia-ui/dist/cjs/lib/engine";
-
-export type { ActionResponse, FactoryOptions, Environment };
-export { registerPlugFactory };
+export { registerPlugFactory, Environment };
