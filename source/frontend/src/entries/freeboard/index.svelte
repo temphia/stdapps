@@ -4,6 +4,17 @@
   import Freeboard from "./freeboard.svelte";
   export let env: Environment;
 
+
+  /*
+  
+  
+  @self/
+  @executor/mnop/pqr
+  @bprint/
+  
+  
+  */
+
   const blocks = [
     {
       name: "The Catalyzer",

@@ -1,5 +1,6 @@
 import { get, Writable } from "svelte/store";
 import { writable } from "svelte/store";
+import type { Environment } from "../../../lib";
 import type { Board, DataSchema, IStore } from "./boardtypes";
 import { MemStore } from "./store";
 
@@ -8,10 +9,16 @@ interface UiState {
   loading: boolean;
 }
 
-export class FreeBoardService {
+export class FreeBoard {
+  env: Environment;
+  constructor() {}
+
+  board_service = () => {};
+}
+
+export class BoardService {
   backend_provider: IStore;
   schema_store: Writable<DataSchema>;
-  data_store: Writable<{ [_: string]: any }>;
   ui_store: Writable<UiState>;
 
   _modal_close: any;
@@ -24,7 +31,6 @@ export class FreeBoardService {
       plug_version: 0,
       schema_version: 0,
     });
-    this.data_store = writable({});
     this.ui_store = writable({
       link_start_name: null,
       loading: true,

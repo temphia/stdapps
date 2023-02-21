@@ -20,10 +20,11 @@
 {:else if block.type === "gallery"}
   <Gallery {block} {edit} />
 {:else if block.type === "group"}
-  {#if edit}
+  <div>Group</div>
+  <!-- {#if edit}
     <div class="flex justify-end">
       <select class="p-1" bind:value={nested}>
-        {#each block.data || [] as inner}
+        {#each (block["data"] || []) as inner}
           <option>{inner.name}</option>
         {/each}
       </select>
@@ -57,6 +58,7 @@
           <Gallery {block} {edit} />
         {/if}
       </div>
-    {/if}
+    {/if} 
   {/each}
+  -->
 {/if}

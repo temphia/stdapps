@@ -2,7 +2,6 @@
   import Draggable from "./draggable.svelte";
   import type { Block, Link } from "../store/boardtypes";
   import BlockItem from "./block_item.svelte";
-  import type { FreeBoardService } from "../store/service";
   import { createEventDispatcher } from "svelte";
   import { calculateLink } from "./calculate";
 
@@ -11,7 +10,6 @@
   export let board_name: string = "";
   export let boards: object[] = [];
   export let link_start_name: string | null;
-  export let service: FreeBoardService;
 
   const dispatch = createEventDispatcher();
 
@@ -92,8 +90,8 @@
           __block_pos = __block_pos;
         }}
         on:edit_block
-        on:start_link={(ev) => service.link_start(ev.detail)}
-        on:block_linked={(ev) => service.link_end(ev.detail)}
+        on:start_link
+        on:block_linked
       >
         <BlockItem {block} edit={false} />
       </Draggable>
