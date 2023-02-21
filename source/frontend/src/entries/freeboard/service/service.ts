@@ -1,8 +1,8 @@
-import { get, Writable } from "svelte/store";
+import type { Writable } from "svelte/store";
 import { writable } from "svelte/store";
+import type { AdminPlugStateTktAPI } from "temphia-frontend/dist/cjs/apiv2/admin/plug_state";
 import type { Environment } from "../../../lib";
-import type { Board, DataSchema, IStore } from "./boardtypes";
-import { MemStore } from "./store";
+import type { Board, DataSchema } from "./boardtypes";
 
 interface UiState {
   link_start_name: string | null;
@@ -11,21 +11,31 @@ interface UiState {
 
 export class FreeBoard {
   env: Environment;
-  constructor() {}
+  pkv_api: AdminPlugStateTktAPI;
 
-  board_service = () => {};
+  constructor(env: Environment) {
+    this.env = env;
+  }
+  load = async () => {
+    const resp = await this.env.PreformAction("load", {});
+    if (!resp.ok) {
+      return;
+    }
+
+    this.pkv_api = this.env.GetRoomTktAPI(resp.data["data"]["state_token"]);
+  };
+
+  UpdateBoard() {}
+  DeleteBoard() {}
 }
 
 export class BoardService {
-  backend_provider: IStore;
+  parent: FreeBoard;
   schema_store: Writable<DataSchema>;
   ui_store: Writable<UiState>;
 
-  _modal_close: any;
-  _modal_open: any;
-
-  constructor() {
-    this.backend_provider = new MemStore();
+  constructor(parent: FreeBoard) {
+    this.parent = parent;
     this.schema_store = writable({
       boards: [],
       plug_version: 0,
@@ -37,20 +47,11 @@ export class BoardService {
     });
   }
 
-  set_modal(_open, _close) {
-    this._modal_open = _open;
-    this._modal_close = _close;
+  async init() {
+    //   this.parent.pkv_api.list();
   }
 
-  async Init() {
-    let data = await this.backend_provider.Load();
-    this.schema_store.set(data);
-  }
-
-  async Save() {
-    let data = get(this.schema_store);
-    await this.backend_provider.Save(data);
-  }
+  async save() {}
 
   link_start(name: string) {
     this.ui_store.update((state) => ({ ...state, link_start_name: name }));
@@ -64,22 +65,12 @@ export class BoardService {
     this.ui_store.update((state) => ({ ...state, link_start_name: null }));
   }
 
-  modal_close() {
-    this._modal_close();
-  }
-  modal_open(compo, props) {
-    this._modal_open(compo, props);
-  }
-
   AddBoard(board: Board) {
     this.schema_store.update((old) => ({
       ...old,
       boards: [...old.boards, board],
     }));
   }
-
-  UpdateBoard() {}
-  DeleteBoard() {}
 
   AddBlock() {}
   UpdateBlock() {}

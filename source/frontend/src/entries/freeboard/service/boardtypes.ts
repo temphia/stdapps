@@ -15,11 +15,6 @@ export interface Board {
   info: string;
 }
 
-export interface IStore {
-  Load(): Promise<DataSchema>;
-  Save(data: DataSchema): Promise<void>;
-}
-
 export interface DataSchema {
   boards: Board[];
   schema_version: number;

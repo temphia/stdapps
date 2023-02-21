@@ -1,2 +1,2 @@
 export * from "./boardtypes";
-export * from "./store";
+export * from "./service"
