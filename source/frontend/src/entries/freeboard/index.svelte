@@ -1,7 +1,8 @@
 <script lang="ts">
+  import type { Environment } from "../../lib";
   import Tailwind from "../common/tailwind.svelte";
-import Freeboard from "./freeboard.svelte";
-  export let env: any;
+  import Freeboard from "./freeboard.svelte";
+  export let env: Environment;
 
   const blocks = [
     {
