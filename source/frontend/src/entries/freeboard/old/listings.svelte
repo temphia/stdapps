@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Board } from "./store/boardtypes";
+  import type { Board } from "../service";
 
   export let boards: Board[] = [];
   export let onClick;

@@ -3,7 +3,7 @@
   import Gallery from "../elements/gallary/gallery.svelte";
   import Textbox from "../elements/textbox/textbox.svelte";
   import Todo from "../elements/todo/todo.svelte";
-  import type { Block, Link } from "../store/boardtypes";
+  import type { Block, Link } from "../../service";
 
   export let block: Block;
   export let edit: boolean;

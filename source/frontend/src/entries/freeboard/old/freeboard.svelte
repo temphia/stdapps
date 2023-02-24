@@ -1,5 +1,5 @@
 <script>
-  import Board from "./board/board.svelte";
+  import Board from "./old/board/board.svelte";
   import Listings from "./listings.svelte";
 
   export let blocks;
