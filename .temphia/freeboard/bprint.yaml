@@ -3,10 +3,10 @@ slug: freeboard
 type: bundle
 description: Freeboard is a canvas for your ideas.
 version: current
-env_file: config/freeboard/.env
+env_file: .temphia/freeboard/.env
 files:
-  schema.json: config/freeboard/schema.json
-  plug.schema.json: config/freeboard/plug.schema.json
+  schema.json: .temphia/freeboard/schema.json
+  plug.schema.json: .temphia/freeboard/plug.schema.json
   server.js: source/backend/freeboard/server.js
   client.js: source/frontend/public/build/freeboard.js
   client.css: source/frontend/public/build/freeboard.css
