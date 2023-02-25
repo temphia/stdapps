@@ -1,10 +1,12 @@
 <script lang="ts">
   import { getContext } from "svelte";
   import RootLayout from "../common/root_layout.svelte";
+  import NewBoard from "./panels/boards/new_board.svelte";
   import { Context, KEY } from "./service";
 
   const ctx = getContext(KEY) as Context;
   const service = ctx.get_service();
+  const modal = ctx.get_modal();
 
   let boards = [];
   let loading = false;
@@ -25,7 +27,9 @@
     console.log("@reload");
   };
 
-  const new_board = () => {};
+  const new_board = () => {
+    modal.show_small(NewBoard, {});
+  };
 </script>
 
 <RootLayout name="Freeboard" actions={{ "↻": reload, "+": new_board }}>

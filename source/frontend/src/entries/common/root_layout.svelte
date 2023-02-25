@@ -3,8 +3,8 @@
   export let actions: { [_: string]: () => void } = {};
 </script>
 
-<div class="bg-blue-400 w-full h-screen font-sans flex flex-col">
-  <div class="flex p-2 justify-between bg-blue-600">
+<div class="bg-blue-50 w-full h-screen font-sans flex flex-col">
+  <div class="flex p-2 justify-between bg-blue-300">
     <div class="flex">
       <h3 class="text-white mr-4">{name}</h3>
     </div>
@@ -19,6 +19,5 @@
       {/each}
     </div>
   </div>
-
   <slot />
 </div>
