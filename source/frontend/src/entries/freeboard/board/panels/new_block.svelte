@@ -1,19 +1,31 @@
 <script lang="ts">
-  export let onSave: (data: { slug: string; name: string }) => void;
+  import type { Block } from "../../service/boardtypes";
+
+  export let onSave: (data: Block) => void;
+
+  const validateSlug = (v: string) => /^[a-z](-?[a-z])*$/.test(v);
 
   let slug = "";
   let name = "";
   let message = "";
+  let type = "textbox";
 
   const create = () => {
+    if (!validateSlug(slug)) {
+      message = "Invalid slug";
+    }
+
     if (!name) {
       message = "Invalid name";
     }
 
     message = "";
     onSave({
-      slug,
+      data: null,
+      links: [],
       name,
+      slug,
+      type,
     });
   };
 </script>
@@ -32,6 +44,22 @@
       bind:value={slug}
       placeholder="Slug"
     />
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-2 text-sm font-bold text-gray-700" for="type">
+      Type
+    </label>
+
+    <select
+      class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+      id="type"
+      bind:value={type}
+    >
+      <option value="textbox">Textbox</option>
+      <option value="todo">Todo</option>
+      <option value="gallary">Gallary</option>
+    </select>
   </div>
 
   <div class="mb-4">

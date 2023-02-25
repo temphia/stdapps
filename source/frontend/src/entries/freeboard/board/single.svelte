@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Block } from "../store/boardtypes";
+  import type { Block } from "../service";
   import BlockItem from "./block_item.svelte";
 
   export let block: Block;

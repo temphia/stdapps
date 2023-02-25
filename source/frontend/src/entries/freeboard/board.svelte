@@ -3,6 +3,7 @@
   import RootLayout from "../common/root_layout.svelte";
   import { Context, KEY } from "./service";
   import BoardInner from "./board/board.svelte";
+  import NewBlock from "./board/panels/new_block.svelte";
 
   export let key: string;
   export let onGoBack;
@@ -15,7 +16,9 @@
     const resp = await service.list_board_blocks(key);
   };
 
-  const new_block = () => {};
+  const new_block = () => {
+    modal.show_small(NewBlock, {});
+  };
 
   const home = () => onGoBack && onGoBack();
 </script>

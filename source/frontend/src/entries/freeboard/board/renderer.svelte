@@ -16,7 +16,6 @@
   $: __block_pos = {};
   $: _zoom_level = 1;
 
-  const NEW_BOARD_KEY = "<New Board>";
 </script>
 
 <div class="h-screen w-screen overflow-auto">

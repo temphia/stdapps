@@ -1,7 +1,9 @@
 export interface Block {
+  slug: string
   name: string;
   type: string;
-  data: Block[] | CardElement | ListElement | RichTextElement | GallaryElement
+  data: Block[] | CardElement | ListElement | RichTextElement | GallaryElement;
+  links: { to: string; name: string }[];
 }
 
 export interface Link {
@@ -11,6 +13,7 @@ export interface Link {
 }
 
 export interface Board {
+  slug: string;
   name: string;
   info: string;
 }
@@ -26,7 +29,7 @@ export interface DataSchema {
 export interface CardElement {
   body: string;
   background: string;
-  tags: string[]
+  tags: string[];
 }
 
 export interface ListElement {
@@ -40,4 +43,3 @@ export interface RichTextElement {
 export interface GallaryElement {
   items: { src: string; caption: string }[];
 }
-

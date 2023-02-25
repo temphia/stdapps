@@ -3,7 +3,7 @@
   import AutoTable from "../common/autotable/autotable.svelte";
   import RootLayout from "../common/root_layout.svelte";
   import Board from "./board.svelte";
-  import NewBoard from "./panels/boards/new_board.svelte";
+  import NewBoard from "./panels/new_board.svelte";
   import { Context, KEY } from "./service";
   import { formatBoard } from "./service/format";
 
