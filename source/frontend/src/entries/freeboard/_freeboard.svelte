@@ -3,6 +3,7 @@
   import RootLayout from "../common/root_layout.svelte";
   import NewBoard from "./panels/boards/new_board.svelte";
   import { Context, KEY } from "./service";
+  import { formatBoard } from "./service/format";
 
   const ctx = getContext(KEY) as Context;
   const service = ctx.get_service();
@@ -18,7 +19,8 @@
       return;
     }
 
-    console.log("@boards", resp.data);
+    boards = resp.data.map((v) => formatBoard(v));
+    loading = false;
   };
 
   load();
@@ -28,7 +30,14 @@
   };
 
   const new_board = () => {
-    modal.show_small(NewBoard, {});
+    modal.show_small(NewBoard, {
+      onSave: async (data) => {
+        await service.add_board(data["slug"], {
+          name: data["name"],
+        });
+        load();
+      },
+    });
   };
 </script>
 
