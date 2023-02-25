@@ -17,29 +17,55 @@ export class FreeBoard {
     this.env = env;
   }
   load = async () => {
+    console.log("@load", this)
+
     const resp = await this.env.PreformAction("load", {});
     if (!resp.ok) {
       return;
     }
     const data = resp.data["data"] || {};
-    this.state_api = this.env.GetRoomTktAPI(data["state_tkt"]);
+    this.state_api = this.env.GetPlugStateTktAPI(data["state_tkt"]);
   };
 
   list_boards() {
-    return this.state_api.query({});
+    return this.state_api.query({
+      tag1s: ["board"],
+    });
   }
 
   add_board(id: string, data: any) {
-    return this.state_api.add(id, data);
+    return this.state_api.add(id, JSON.stringify(data), {
+      tag1: "board",
+    });
   }
 
-  update_board() {
-    // name: string, data: any
+  update_board(id: string, data: any) {
+    return this.state_api.update(id, JSON.stringify(data));
   }
 
-  delete_board() {}
+  delete_board(id: string) {
+    return this.state_api.delete(id);
+  }
 
-  list_board_blocks() {}
+  list_board_blocks(blockId: string) {
+    return this.state_api.query({
+      tag1s: [`block-${blockId}`],
+    });
+  }
+
+  add_board_block(blockId: string, bid: string, data: any) {
+    return this.state_api.add(bid, JSON.stringify(data), {
+      tag1: `block-${blockId}`,
+    });
+  }
+
+  update_board_block(blockId: string, bid: string, data: any) {
+    return this.state_api.update(bid, JSON.stringify(data));
+  }
+
+  delete_board_block(blockId: string, bid: string) {
+    return this.state_api.delete(bid);
+  }
 }
 
 export class BoardService {
