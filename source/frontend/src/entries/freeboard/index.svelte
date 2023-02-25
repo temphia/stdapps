@@ -31,7 +31,7 @@
 {#if loading}
   <div>Loading...</div>
 {:else}
-  <FreeboardCompo {service} />
+  <FreeboardCompo />
 {/if}
 
 <Tailwind />
