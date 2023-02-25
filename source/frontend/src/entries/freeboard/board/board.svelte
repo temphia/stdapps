@@ -1,6 +1,6 @@
 <script lang="ts">
   import Renderer from "./renderer.svelte";
-  import type { Block, Link } from "../store/boardtypes";
+  import type { Block, Link } from "../service";
   import BoardLayout from "./_board_layout.svelte";
 
   export let blocks: Block[] = [];

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Draggable from "./draggable.svelte";
-  import type { Block, Link } from "../store/boardtypes";
+  import type { Block, Link } from "../service";
   import BlockItem from "./block_item.svelte";
   import { createEventDispatcher } from "svelte";
   import { calculateLink } from "./calculate";
@@ -20,30 +20,8 @@
 </script>
 
 <div class="h-screen w-screen overflow-auto">
-  <div class="fixed z-50 top-2 right-5 p-1">
-    <div class="flex gap-1 p-1 bg-gray-100 rounded">
-      <select
-        class="p-1 text-white rounded w-32 bg-gray-600"
-        on:click={(ev) => {
-          const selected = ev.target["value"];
-          if (selected === NEW_BOARD_KEY) {
-            return;
-          }
-          dispatch("board_selected", selected);
-          console.log("@clicked board", selected);
-        }}
-        value={board_name}
-      >
-        {#each boards as board}
-          <option>{board["name"]}</option>
-        {/each}
-
-        <option>{NEW_BOARD_KEY}</option>
-      </select>
-
-      <button class="p-1 rounded text-white bg-gray-600 hover:bg-blue-600"
-        >Add</button
-      >
+  <div class="fixed z-50 bottom-8 md:bottom-1 right-5 p-1">
+    <div class="flex gap-1 p-0.5 text-xs bg-gray-100 rounded">
       <button
         class="p-1 rounded text-white bg-gray-600 hover:bg-blue-600"
         on:click={() => {
@@ -53,7 +31,6 @@
           _zoom_level = _zoom_level - 0.1;
         }}>-</button
       >
-
       <button
         class="p-1 rounded text-white bg-gray-600"
         on:click={() => (_zoom_level = 1)}
