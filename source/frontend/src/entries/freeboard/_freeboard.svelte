@@ -2,6 +2,7 @@
   import { getContext } from "svelte";
   import AutoTable from "../common/autotable/autotable.svelte";
   import RootLayout from "../common/root_layout.svelte";
+  import Board from "./board.svelte";
   import NewBoard from "./panels/boards/new_board.svelte";
   import { Context, KEY } from "./service";
   import { formatBoard } from "./service/format";
@@ -13,8 +14,10 @@
   let boards = [];
   let loading = true;
 
+  let selected = "";
+
   const load = async () => {
-    loading = true
+    loading = true;
     const resp = await service.list_boards();
     if (!resp.ok) {
       console.log("@resp_err", resp);
@@ -39,14 +42,36 @@
   };
 </script>
 
-<RootLayout name="Freeboard" actions={{ "↻": load, "+": new_board }}>
-  <AutoTable
-    datas={boards}
-    actions={[]}
-    action_key="key"
-    key_names={[
-      ["key", "Key"],
-      ["name", "Name"],
-    ]}
+{#if selected}
+  <Board
+    onGoBack={() => {
+      selected = "";
+    }}
+    key={selected}
   />
-</RootLayout>
+{:else}
+  <RootLayout name="Freeboard" actions={{ "↻": load, "+": new_board }}>
+    {#if loading}
+      <div>Loading</div>
+    {:else}
+      <AutoTable
+        datas={boards}
+        actions={[
+          {
+            Name: "Explore",
+            Action: (id) => {
+              selected = id;
+            },
+            Class: "bg-green-400",
+            icon: "link",
+          },
+        ]}
+        action_key="key"
+        key_names={[
+          ["key", "Key"],
+          ["name", "Name"],
+        ]}
+      />
+    {/if}
+  </RootLayout>
+{/if}

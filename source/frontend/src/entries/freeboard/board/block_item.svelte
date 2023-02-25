@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Card from "../elements/card/card.svelte";
-  import Gallery from "../elements/gallary/gallery.svelte";
-  import Textbox from "../elements/textbox/textbox.svelte";
-  import Todo from "../elements/todo/todo.svelte";
-  import type { Block, Link } from "../../service";
+  import Card from "./elements/card/card.svelte";
+  import Gallery from "./elements/gallary/gallery.svelte";
+  import Textbox from "./elements/textbox/textbox.svelte";
+  import Todo from "./elements/todo/todo.svelte";
+  import type { Block, Link } from "../service";
 
   export let block: Block;
   export let edit: boolean;
