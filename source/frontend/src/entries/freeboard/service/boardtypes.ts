@@ -1,13 +1,15 @@
-export const BoardTypeTextbox = "textbox";
-export const BoardTypeTodo = "todo";
-export const BoardTypeGallary = "gallary";
-export const BoardTypeCard = "card";
+export const BlockTypeTextbox = "textbox";
+export const BlockTypeTodo = "todo";
+export const BlockTypeGallary = "gallary";
+export const BlockTypeCard = "card";
+export const BlockTypeDrawings = "drawings"
 
 export const BoardTypes = [
-  BoardTypeTextbox,
-  BoardTypeTodo,
-  BoardTypeGallary,
-  BoardTypeCard,
+  BlockTypeTextbox,
+  BlockTypeTodo,
+  BlockTypeGallary,
+  BlockTypeCard,
+  BlockTypeDrawings,
 ];
 
 export interface Block {

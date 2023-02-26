@@ -3,7 +3,13 @@
   import Gallery from "./elements/gallary/gallery.svelte";
   import Textbox from "./elements/textbox/textbox.svelte";
   import Todo from "./elements/todo/todo.svelte";
-  import type { Block, Link } from "../service";
+  import { Block, BlockTypeDrawings, Link } from "../service";
+  import {
+    BlockTypeTextbox,
+    BlockTypeTodo,
+    BlockTypeGallary,
+    BlockTypeCard,
+  } from "../service";
 
   export let block: Block;
   export let edit: boolean;
@@ -11,14 +17,16 @@
   let nested = "";
 </script>
 
-{#if block.type === "card"}
+{#if block.type === BlockTypeCard}
   <Card {block} {edit} />
-{:else if block.type === "todo"}
+{:else if block.type === BlockTypeTodo}
   <Todo {block} {edit} />
-{:else if block.type === "richtext"}
+{:else if block.type === BlockTypeTextbox}
   <Textbox {block} {edit} />
-{:else if block.type === "gallery"}
+{:else if block.type === BlockTypeGallary}
   <Gallery {block} {edit} />
+{:else if block.type === BlockTypeDrawings}
+  <div>Drawings</div>
 {:else if block.type === "group"}
   <div>Group</div>
   <!-- {#if edit}
