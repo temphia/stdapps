@@ -4,6 +4,7 @@ export interface Block {
   type: string;
   data: Block[] | CardElement | ListElement | RichTextElement | GallaryElement;
   links: { to: string; name: string }[];
+  version?: number
 }
 
 export interface Link {
@@ -16,12 +17,6 @@ export interface Board {
   slug: string;
   name: string;
   info: string;
-}
-
-export interface DataSchema {
-  boards: Board[];
-  schema_version: number;
-  plug_version: number;
 }
 
 // elements
