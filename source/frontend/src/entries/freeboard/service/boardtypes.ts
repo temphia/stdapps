@@ -1,10 +1,22 @@
+export const BoardTypeTextbox = "textbox";
+export const BoardTypeTodo = "todo";
+export const BoardTypeGallary = "gallary";
+export const BoardTypeCard = "card";
+
+export const BoardTypes = [
+  BoardTypeTextbox,
+  BoardTypeTodo,
+  BoardTypeGallary,
+  BoardTypeCard,
+];
+
 export interface Block {
-  slug: string
+  slug: string;
   name: string;
   type: string;
   data: Block[] | CardElement | ListElement | RichTextElement | GallaryElement;
   links: { to: string; name: string }[];
-  version?: number
+  version?: number;
 }
 
 export interface Link {

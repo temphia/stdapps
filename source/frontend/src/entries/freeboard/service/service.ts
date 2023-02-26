@@ -2,7 +2,7 @@ import type { Writable } from "svelte/store";
 import { writable } from "svelte/store";
 import type { AdminPlugStateTktAPI } from "temphia-frontend/dist/cjs/apiv2/admin/plug_state";
 import type { Environment } from "../../../lib";
-import type { Board, DataSchema } from "./boardtypes";
+import type { Board } from "./boardtypes";
 
 interface UiState {
   link_start_name: string | null;

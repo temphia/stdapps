@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Block } from "../../service/boardtypes";
+  import { Block, BoardTypes } from "../../service/boardtypes";
 
   export let onSave: (data: Block) => void;
 
@@ -56,9 +56,9 @@
       id="type"
       bind:value={type}
     >
-      <option value="textbox">Textbox</option>
-      <option value="todo">Todo</option>
-      <option value="gallary">Gallary</option>
+      {#each BoardTypes as bt}
+        <option class="capitalize" value={bt}>{bt}</option>
+      {/each}
     </select>
   </div>
 
