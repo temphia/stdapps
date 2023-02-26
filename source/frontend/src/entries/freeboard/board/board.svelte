@@ -16,14 +16,9 @@
     {board_name}
     {boards}
     {links}
-    on:edit_block={(ev) => {
-      const block = blocks.filter((f) => f.name === ev.detail)[0];
-      if (!block) {
-        console.log("@EMPTY_BLOCK");
-        return;
-      }
-    }}
-    on:board_selected={(ev) => {}}
+    on:edit_block
+    on:board_selected
+    on:edit_block
     {link_start_name}
   />
 </BoardLayout>

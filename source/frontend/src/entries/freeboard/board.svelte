@@ -46,6 +46,10 @@
 
   const home = () => onGoBack && onGoBack();
 
+  const getBlock = (ev) => {
+    return blocks.filter((f) => f.name === ev.detail)[0];
+  };
+
   load();
 </script>
 
@@ -56,6 +60,14 @@
   {#if loading}
     <div>Loading</div>
   {:else}
-    <BoardInner link_start_name="" {blocks} board_name="" links={[]} />
+    <BoardInner
+      link_start_name=""
+      {blocks}
+      board_name=""
+      links={[]}
+      on:edit_block={(ev) => {
+        const block = getBlock(ev);
+      }}
+    />
   {/if}
 </RootLayout>

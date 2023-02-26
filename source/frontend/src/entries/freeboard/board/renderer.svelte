@@ -11,8 +11,6 @@
   export let boards: object[] = [];
   export let link_start_name: string | null;
 
-  const dispatch = createEventDispatcher();
-
   $: __block_pos = {};
   $: _zoom_level = 1;
 
