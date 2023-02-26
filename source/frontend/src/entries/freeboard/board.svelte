@@ -5,6 +5,7 @@
   import BoardInner from "./board/board.svelte";
   import NewBlock from "./board/panels/new_block.svelte";
   import { formatBlock } from "./service/format";
+  import BlockItem from "./board/block_item.svelte";
 
   export let key: string;
   export let onGoBack;
@@ -67,6 +68,11 @@
       links={[]}
       on:edit_block={(ev) => {
         const block = getBlock(ev);
+
+        modal.show_big(BlockItem, {
+          edit: true,
+          block,
+        });
       }}
     />
   {/if}

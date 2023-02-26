@@ -3,10 +3,20 @@
   export let data = [];
 
   let new_value = "";
-  let new_value_done = false;
 </script>
 
-<div class="title font-bold text-lg">{title}</div>
+<div class="title font-bold text-lg capitalize">{title}</div>
+<ul class="todo-list mt-4 p-2 border rounded">
+  {#each data as item}
+    <li class="flex justify-start items-center mt-3">
+      <div class="flex items-center">
+        <input type="checkbox" checked={item["done"]} />
+      </div>
+      <div>{item["value"] || ""}</div>
+    </li>
+  {/each}
+</ul>
+
 <div class="flex items-center text-sm mt-2">
   <input
     type="text"
@@ -39,15 +49,3 @@
     </svg>
   </button>
 </div>
-
-<ul class="todo-list mt-4">
-  {#each data as item}
-    <li class="flex justify-between items-center mt-3">
-      <div class="flex items-center">
-        <input type="checkbox" checked={item["done"]} disabled />
-        <div class="capitalize ml-3 text-sm font-semibold" />
-      </div>
-      <div>{item["value"] || ""}</div>
-    </li>
-  {/each}
-</ul>
