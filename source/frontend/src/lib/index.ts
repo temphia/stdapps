@@ -1,4 +1,7 @@
 import type { Environment } from "temphia-frontend/dist/cjs/engine/env";
-import { registerPlugFactory } from "temphia-frontend/dist/cjs/engine/register";
+import {
+  registerPlugFactory,
+  registerFactory,
+} from "temphia-frontend/dist/cjs/engine/register";
 
-export { registerPlugFactory, Environment };
+export { registerPlugFactory, registerFactory, Environment };
