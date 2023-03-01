@@ -1,13 +1,6 @@
-import type { Writable } from "svelte/store";
-import { writable } from "svelte/store";
 import type { AdminPlugStateTktAPI } from "temphia-frontend/dist/cjs/apiv2/admin/plug_state";
 import type { Environment } from "../../../lib";
 import type { Board } from "./boardtypes";
-
-interface UiState {
-  link_start_name: string | null;
-  loading: boolean;
-}
 
 export class FreeBoard {
   env: Environment;
@@ -17,7 +10,7 @@ export class FreeBoard {
     this.env = env;
   }
   load = async () => {
-    console.log("@load", this)
+    console.log("@load", this);
 
     const resp = await this.env.PreformAction("load", {});
     if (!resp.ok) {
@@ -66,39 +59,4 @@ export class FreeBoard {
   delete_board_block(blockId: string, bid: string) {
     return this.state_api.delete(bid);
   }
-}
-
-export class BoardService {
-  parent: FreeBoard;
-  ui_store: Writable<UiState>;
-
-  constructor(parent: FreeBoard) {
-    this.parent = parent;
-    this.ui_store = writable({
-      link_start_name: null,
-      loading: true,
-    });
-  }
-
-  async init() {
-    //   this.parent.pkv_api.list();
-  }
-
-  async save() {}
-
-  link_start(name: string) {
-    this.ui_store.update((state) => ({ ...state, link_start_name: name }));
-  }
-
-  link_start_clear() {
-    this.ui_store.update((state) => ({ ...state, link_start_name: null }));
-  }
-
-  link_end(name: string) {
-    this.ui_store.update((state) => ({ ...state, link_start_name: null }));
-  }
-
-  AddBlock() {}
-  UpdateBlock() {}
-  DeleteBlock() {}
 }
