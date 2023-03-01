@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { generateId } from "../service/id";
+
   export let onSave: (data: { slug: string; name: string }) => void;
 
-  let slug = "";
+  let slug = generateId();
   let name = "";
   let info = "";
   let message = "";
@@ -30,8 +32,8 @@
       class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
       id="slug"
       type="text"
-      bind:value={slug}
-      placeholder="Slug"
+      value={slug}
+      disabled
     />
   </div>
 

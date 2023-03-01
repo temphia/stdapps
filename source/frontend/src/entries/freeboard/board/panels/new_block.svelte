@@ -1,20 +1,15 @@
 <script lang="ts">
   import { Block, BoardTypes } from "../../service/boardtypes";
+  import { generateId } from "../../service/id";
 
   export let onSave: (data: Block) => void;
 
-  const validateSlug = (v: string) => /^[a-z](-?[a-z])*$/.test(v);
-
-  let slug = "";
+  let slug = generateId();
   let name = "";
   let message = "";
   let type = "textbox";
 
   const create = () => {
-    if (!validateSlug(slug)) {
-      message = "Invalid slug";
-    }
-
     if (!name) {
       message = "Invalid name";
     }
@@ -41,8 +36,8 @@
       class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
       id="slug"
       type="text"
-      bind:value={slug}
-      placeholder="Slug"
+      value={slug}
+      disabled
     />
   </div>
 

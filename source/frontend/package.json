@@ -57,6 +57,7 @@
     "grapesjs-tabs": "^1.0.6",
     "grapesjs-tailwind": "^1.0.8",
     "grapesjs-tooltip": "^0.1.7",
+    "hashids": "^2.2.11",
     "leaflet": "^1.9.3",
     "lory.js": "^2.5.3",
     "postcss": "^8.3.6",

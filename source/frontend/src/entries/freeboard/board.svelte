@@ -40,15 +40,9 @@
     modal.show_small(NewBlock, {
       onSave: async (data: Block) => {
         await service.add_board_block(key, data.slug, data);
-
-        const resp = await service.list_board_blocks(key);
-        if (!resp.ok) {
-          console.log("@resp_err", resp);
-          return;
-        }
-
-        blocks = resp.data.map((v) => formatBlock(v));
-      },
+        modal.close_small()
+        load()
+       },
     });
   };
 

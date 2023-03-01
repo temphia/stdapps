@@ -37,6 +37,9 @@
         await service.add_board(data["slug"], {
           name: data["name"],
         });
+
+        modal.close_small()
+
         load();
       },
     });
