@@ -186,7 +186,7 @@
         </svg>
       </button>
 
-      <button on:click={() => dispatch("start_link", name)}>
+      <button on:click={() => dispatch("new_link_start", name)}>
         <svg
           fill="currentColor"
           class="w-4 h-4 hover:p-0.5 hover:bg-yellow-300"
@@ -215,10 +215,11 @@
   </div>
 
   {#if __drop_mode}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div
       on:click={() => {
         if (__drop_mode) {
-          dispatch("block_linked", name);
+          dispatch("new_link_end", name);
         }
       }}
       class="py-1 cursor-pointer bg-yellow-500 text-white"

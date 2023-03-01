@@ -64,8 +64,10 @@
           __block_pos = __block_pos;
         }}
         on:edit_block
-        on:start_link
-        on:block_linked
+
+        on:new_link_start
+        on:new_link_end
+
       >
         <BlockItem {block} edit={false} />
       </Draggable>

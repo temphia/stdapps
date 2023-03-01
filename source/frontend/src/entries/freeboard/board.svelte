@@ -1,13 +1,15 @@
 <script lang="ts">
   import { getContext } from "svelte";
   import RootLayout from "../common/root_layout.svelte";
-  import { Block, Context, KEY } from "./service";
+  import { Block, Board, Context, KEY } from "./service";
   import BoardInner from "./board/board.svelte";
   import NewBlock from "./board/panels/new_block.svelte";
-  import { formatBlock } from "./service/format";
+  import { extractLinks, formatBlock } from "./service/format";
   import BlockItem from "./board/block_item.svelte";
-
+  import NewLink from "./panels/new_link.svelte";
+  
   export let key: string;
+  export let board: Board;
   export let onGoBack;
 
   const ctx = getContext(KEY) as Context;
@@ -51,7 +53,38 @@
     return blocks.filter((f) => f.name === ev.detail)[0];
   };
 
+  const completeLink = (from: string, to: string) => {
+    const block = blocks.filter((v) => v["slug"] !== from)[0];
+    if (!block) {
+      return;
+    }
+
+    modal.show_small(NewLink, {
+      to,
+      from,
+      onSave: async (name: string) => {
+        loading = true;
+
+        let links = [
+          ...(block.links || []),
+          {
+            to,
+            from,
+            name,
+          },
+        ];
+
+        modal.close_small();
+
+        await service.update_board(from, { ...block, links });
+        load();
+      },
+    });
+  };
+
   load();
+
+  $: _link_start_name = null;
 </script>
 
 <RootLayout
@@ -62,16 +95,17 @@
     <div>Loading</div>
   {:else}
     <BoardInner
-      link_start_name=""
+      link_start_name={_link_start_name}
       {blocks}
-      board_name=""
-      links={[]}
+      board_name={board.name}
+      links={extractLinks(blocks)}
+      on:new_link_start={(ev) => (_link_start_name = ev.detail)}
+      on:new_link_end={(ev) => completeLink(_link_start_name, ev.detail)}
+      on:new_link_cancel={(ev) => (_link_start_name = ev.detail)}
       on:edit_block={(ev) => {
-        const block = getBlock(ev);
-
         modal.show_big(BlockItem, {
           edit: true,
-          block,
+          block: getBlock(ev),
         });
       }}
     />
