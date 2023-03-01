@@ -6,20 +6,17 @@
 
   export let blocks: Block[] = [];
   export let links: Link[] = [];
-  export let board_name: string = "";
-  export let boards: object[] = [];
   export let link_start_name: string | null;
 
   const dispatch = createEventDispatcher();
 
-  $: console.log("@links", links);
+  $: console.log("|> @links", links);
+  $: console.log("|> @blocks", blocks);
 </script>
 
 <BoardLayout {link_start_name} onClear={() => dispatch("new_link_cancel")}>
   <Renderer
     {blocks}
-    {board_name}
-    {boards}
     {links}
     on:new_link_start
     on:new_link_end

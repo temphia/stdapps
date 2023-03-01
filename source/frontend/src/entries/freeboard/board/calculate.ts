@@ -6,6 +6,8 @@ export interface BlockPoint {
 }
 
 export const calculateLink = (fromElem: BlockPoint, toElem: BlockPoint) => {
+  console.log("@calculating_link", fromElem, toElem)
+
   try {
     const fromCenter = [
       fromElem.top + fromElem.height / 2,

@@ -2,18 +2,16 @@
   import Draggable from "./draggable.svelte";
   import type { Block, Link } from "../service";
   import BlockItem from "./block_item.svelte";
-  import { createEventDispatcher } from "svelte";
   import { calculateLink } from "./calculate";
 
   export let blocks: Block[] = [];
   export let links: Link[] = [];
-  export let board_name: string = "";
-  export let boards: object[] = [];
   export let link_start_name: string | null;
 
   $: __block_pos = {};
   $: _zoom_level = 1;
 
+  $: console.log("@all_pos", __block_pos)
 </script>
 
 <div class="h-screen w-screen overflow-auto">
@@ -58,16 +56,16 @@
     {#each blocks as block}
       <Draggable
         {link_start_name}
-        name={block.name}
+        name={block.slug}
         on:card_pos={(ev) => {
+          console.log("@@card_pos", ev.detail);
+
           __block_pos[ev.detail["name"]] = ev.detail;
           __block_pos = __block_pos;
         }}
         on:edit_block
-
         on:new_link_start
         on:new_link_end
-
       >
         <BlockItem {block} edit={false} />
       </Draggable>

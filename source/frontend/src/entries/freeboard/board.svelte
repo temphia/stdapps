@@ -6,8 +6,8 @@
   import NewBlock from "./board/panels/new_block.svelte";
   import { extractLinks, formatBlock } from "./service/format";
   import BlockItem from "./board/block_item.svelte";
-  import NewLink from "./panels/new_link.svelte";
-  
+  import NewLink from "./board/panels/new_link.svelte";
+
   export let key: string;
   export let board: Board;
   export let onGoBack;
@@ -28,6 +28,10 @@
     }
 
     blocks = resp.data.map((v) => formatBlock(v));
+
+    console.log("@formatted_blocks", blocks);
+    console.log("@raw", resp.data);
+
     loading = false;
   };
 
@@ -54,7 +58,7 @@
   };
 
   const completeLink = (from: string, to: string) => {
-    const block = blocks.filter((v) => v["slug"] !== from)[0];
+    const block = blocks.filter((v) => v["slug"] === from)[0];
     if (!block) {
       return;
     }
@@ -85,6 +89,7 @@
   load();
 
   $: _link_start_name = null;
+  $: _links = extractLinks(blocks);
 </script>
 
 <RootLayout
@@ -97,10 +102,13 @@
     <BoardInner
       link_start_name={_link_start_name}
       {blocks}
-      board_name={board.name}
-      links={extractLinks(blocks)}
+      links={_links}
       on:new_link_start={(ev) => (_link_start_name = ev.detail)}
-      on:new_link_end={(ev) => completeLink(_link_start_name, ev.detail)}
+      on:new_link_end={(ev) => {
+        const from = _link_start_name;
+        _link_start_name = null;
+        completeLink(from, ev.detail);
+      }}
       on:new_link_cancel={(ev) => (_link_start_name = ev.detail)}
       on:edit_block={(ev) => {
         modal.show_big(BlockItem, {
