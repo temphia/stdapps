@@ -7,6 +7,7 @@
   import { extractLinks, formatBlock } from "./service/format";
   import BlockItem from "./board/block_item.svelte";
   import NewLink from "./board/panels/new_link.svelte";
+  import SingleEdit from "./board/single_edit.svelte";
 
   export let key: string;
   export let board: Board;
@@ -54,7 +55,7 @@
   const home = () => onGoBack && onGoBack();
 
   const getBlock = (ev) => {
-    return blocks.filter((f) => f.name === ev.detail)[0];
+    return blocks.filter((f) => f.slug === ev.detail)[0];
   };
 
   const completeLink = (from: string, to: string) => {
@@ -90,6 +91,8 @@
 
   $: _link_start_name = null;
   $: _links = extractLinks(blocks);
+
+  $: console.log("@blocks", blocks)
 </script>
 
 <RootLayout
@@ -111,18 +114,15 @@
       }}
       on:new_link_cancel={(ev) => (_link_start_name = ev.detail)}
       on:edit_block={(ev) => {
-        modal.show_big(BlockItem, {
+        modal.show_big(SingleEdit, {
           edit: true,
           block: getBlock(ev),
         });
       }}
-
       on:delete_block={async (ev) => {
-        await service.delete_board_block(key, ev.detail)
-        load()
+        await service.delete_board_block(key, ev.detail);
+        load();
       }}
-
-
     />
   {/if}
 </RootLayout>

@@ -4,7 +4,7 @@
 
   export let block;
   export let edit = false;
-  export let data = undefined;
+  let data = block.data || "";
 </script>
 
 {#if edit}
