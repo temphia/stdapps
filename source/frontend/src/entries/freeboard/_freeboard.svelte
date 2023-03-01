@@ -15,6 +15,7 @@
   let loading = true;
 
   let selected = "";
+  let selectd_board = null;
 
   const load = async () => {
     loading = true;
@@ -45,9 +46,11 @@
 {#if selected}
   <Board
     onGoBack={() => {
+      selectd_board = null;
       selected = "";
     }}
     key={selected}
+    board={selectd_board}
   />
 {:else}
   <RootLayout name="Freeboard" actions={{ "↻": load, "+": new_board }}>
@@ -59,7 +62,8 @@
         actions={[
           {
             Name: "Explore",
-            Action: (id) => {
+            Action: (id, data) => {
+              selectd_board = data;
               selected = id;
             },
             Class: "bg-green-400",
