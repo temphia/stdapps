@@ -89,7 +89,7 @@
 
 <RootLayout
   name="Freeboard"
-  actions={{ "↻": load, "+": new_block, "🏠": home }}
+  actions={{ "↻": load, "+": new_block, "🏠": home, "💾": () => {} }}
 >
   {#if loading}
     <div>Loading</div>
