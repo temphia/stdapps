@@ -22,6 +22,7 @@
     on:new_link_end
     on:edit_block
     on:board_selected
+    on:delete_block
     {link_start_name}
   />
 </BoardLayout>

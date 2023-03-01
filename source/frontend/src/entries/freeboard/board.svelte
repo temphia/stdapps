@@ -116,6 +116,13 @@
           block: getBlock(ev),
         });
       }}
+
+      on:delete_block={async (ev) => {
+        await service.delete_board_block(key, ev.detail)
+        load()
+      }}
+
+
     />
   {/if}
 </RootLayout>

@@ -69,6 +69,16 @@
             Class: "bg-green-400",
             icon: "link",
           },
+
+          {
+            Name: "Delete",
+            Action: async (id) => {
+              await service.delete_board(id)
+              load()
+            },
+            Class: "bg-red-400",
+            icon: "trash",
+          },
         ]}
         action_key="key"
         key_names={[

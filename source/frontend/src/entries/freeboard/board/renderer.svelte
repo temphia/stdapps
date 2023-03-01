@@ -66,6 +66,7 @@
         on:edit_block
         on:new_link_start
         on:new_link_end
+        on:delete_block
       >
         <BlockItem {block} edit={false} />
       </Draggable>

@@ -37,7 +37,8 @@ export class FreeBoard {
   }
 
   delete_board(id: string) {
-    return this.state_api.delete(id);
+    // fixme =< also cleanup blocks and other stuff inside board
+     return this.state_api.delete(id);
   }
 
   list_board_blocks(blockId: string) {
