@@ -7,6 +7,7 @@ env_file: .temphia/freeboard/.env
 files:
   schema.json: .temphia/freeboard/schema.json
   plug.schema.json: .temphia/freeboard/plug.schema.json
+  room.schema.json: .temphia/freeboard/room.schema.json
   server.js: source/backend/freeboard/server.js
   client.js: source/frontend/public/build/freeboard.js
   client.css: source/frontend/public/build/freeboard.css
