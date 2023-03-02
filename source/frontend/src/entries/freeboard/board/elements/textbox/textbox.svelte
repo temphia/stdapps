@@ -4,11 +4,13 @@
 
   export let block;
   export let edit = false;
-  let data = block.data || "";
+
+  let data = block.data || {};
+  export let getValue = undefined;
 </script>
 
 {#if edit}
-  <StateEdit {data} />
+  <StateEdit {data} bind:getValue />
 {:else}
   <StateView {data} />
 {/if}

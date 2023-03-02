@@ -13,6 +13,7 @@
 
   export let block: Block;
   export let edit: boolean;
+  export let getValue = undefined;
 </script>
 
 {#if block.type === BlockTypeCard}
@@ -20,7 +21,7 @@
 {:else if block.type === BlockTypeTodo}
   <Todo {block} {edit} />
 {:else if block.type === BlockTypeTextbox}
-  <Textbox {block} {edit} />
+  <Textbox {block} {edit} bind:getValue />
 {:else if block.type === BlockTypeGallary}
   <Gallery {block} {edit} />
 {:else if block.type === BlockTypeDrawings}

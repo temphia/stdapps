@@ -5,9 +5,9 @@
   import ButtonToggle from "./button_toggle.svelte";
 
   export let content = "<p>Hello World! 🌍️ </p>";
+  export let editor = null;
 
-  let element;
-  let editor;
+  let element = null;
 
   onMount(() => {
     editor = new Editor({
@@ -184,7 +184,6 @@
       </button>
     </div> -->
 
-
     <div
       class="flex flex-wrap items-center divide-gray-200 sm:divide-x bg-gray-100"
     >
@@ -238,8 +237,14 @@
   :global(.ProseMirror ul, .ProseMirror ol) {
     padding: 0 1rem;
   }
-  :global(.ProseMirror h1, .ProseMirror h2, .ProseMirror h3, .ProseMirror
-      h4, .ProseMirror h5, .ProseMirror h6) {
+  :global(
+      .ProseMirror h1,
+      .ProseMirror h2,
+      .ProseMirror h3,
+      .ProseMirror h4,
+      .ProseMirror h5,
+      .ProseMirror h6
+    ) {
     line-height: 1.1;
   }
   :global(.ProseMirror code) {

@@ -2,7 +2,11 @@
   import Taptap from "./_taptap/taptap.svelte";
   export let data: object = {};
 
-  $: console.log("@taptap", data);
+  let editor;
+
+  export const getValue = () => ({ content: editor.getHTML() });
+  
+
 </script>
 
-<Taptap content={data["content"] || `"<p>Hello World! 🌍️ </p>"`} />
+<Taptap bind:editor content={data["content"] || ""} />

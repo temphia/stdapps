@@ -40,9 +40,9 @@
     modal.show_small(NewBlock, {
       onSave: async (data: Block) => {
         await service.add_board_block(key, data.slug, data);
-        modal.close_small()
-        load()
-       },
+        modal.close_small();
+        load();
+      },
     });
   };
 
@@ -86,7 +86,31 @@
   $: _link_start_name = null;
   $: _links = extractLinks(blocks);
 
-  $: console.log("@blocks", blocks)
+  $: console.log("@blocks", blocks);
+
+  const editBlock = (ev) => {
+    const block = getBlock(ev);
+
+    modal.show_big(SingleEdit, {
+      edit: true,
+      block: block,
+      onUpdate: async (bid: string, bdata: any) => {
+        await service.update_board(bid, { ...block, data: bdata });
+
+        const resp = await service.get_board_block(key, bid);
+        if (!resp.ok) {
+          return;
+        }
+
+        const idx = blocks.findIndex((value) => value["slug"] == block.slug);
+        blocks[idx] = formatBlock(resp.data);
+        blocks = [...blocks]
+      },
+      onClose: () => {
+        modal.close_big();
+      },
+    });
+  };
 </script>
 
 <RootLayout
@@ -107,12 +131,7 @@
         completeLink(from, ev.detail);
       }}
       on:new_link_cancel={(ev) => (_link_start_name = ev.detail)}
-      on:edit_block={(ev) => {
-        modal.show_big(SingleEdit, {
-          edit: true,
-          block: getBlock(ev),
-        });
-      }}
+      on:edit_block={editBlock}
       on:delete_block={async (ev) => {
         await service.delete_board_block(key, ev.detail);
         load();
