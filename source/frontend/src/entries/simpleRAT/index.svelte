@@ -1,8 +1,10 @@
-<script>
+<script lang="ts">
   import { writable } from "svelte/store";
   import Root from "./root.svelte";
   import Shell from "./xterm/xterm.svelte";
   import RootLayout from "../common/root_layout.svelte";
+
+  export let env: any;
 
   const route = writable({
     path: "root",
