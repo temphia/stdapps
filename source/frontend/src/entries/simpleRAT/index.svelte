@@ -1,8 +1,8 @@
 <script>
   import { writable } from "svelte/store";
   import Root from "./root.svelte";
-  import Shell from "./shell.svelte";
-  import Layout from "./_layout.svelte";
+  import Shell from "./xterm/xterm.svelte";
+  import RootLayout from "../common/root_layout.svelte";
 
   const route = writable({
     path: "root",
@@ -20,10 +20,10 @@
   $: _device = $route.device;
 </script>
 
-<Layout>
+<RootLayout name="simpleRAT">
   {#if _path === "root"}
     <Root on:open_shell={(ev) => open_shell(ev.detail)} />
   {:else if _path === "shell"}
     <Shell />
   {/if}
-</Layout>
+</RootLayout>

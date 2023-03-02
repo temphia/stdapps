@@ -13,6 +13,8 @@
 
 <div bind:this={ref} class="h-full w-full relative border-2" />
 
+
+
 <style>
   :global(.xterm) {
     cursor: text;

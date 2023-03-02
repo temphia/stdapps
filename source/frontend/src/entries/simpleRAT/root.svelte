@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  import Autotable from "../common/autotable/autotable.svelte";
 
   const devices = [
     {
@@ -13,7 +14,28 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="p-5">
+<Autotable
+  action_key={"id"}
+  datas={devices}
+  actions={[
+    {
+      Name: "Explore",
+      Action: (id) => {
+        dispatch("open_shell", id);
+      },
+      Class: "bg-green-400",
+      icon: "link",
+    },
+  ]}
+  key_names={[
+    ["Name", "name"],
+    ["Id", "id"],
+    ["assoc_user", "Assoc User"],
+    ["registered", "Registered"],
+  ]}
+/>
+
+<!-- <div class="p-5">
   <table class="w-full text-md bg-white shadow-md rounded mb-4">
     <tbody>
       <tr class="border-b">
@@ -47,4 +69,4 @@
       {/each}
     </tbody>
   </table>
-</div>
+</div> -->
