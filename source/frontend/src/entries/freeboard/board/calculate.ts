@@ -1,28 +1,31 @@
 export interface BlockPoint {
   top: number;
   left: number;
-  height: number;
-  width: number;
+  height: string;
+  width: string;
 }
 
 export const calculateLink = (fromElem: BlockPoint, toElem: BlockPoint) => {
-  console.log("@calculating_link", fromElem, toElem)
+  console.log("@calculating_link", fromElem, toElem);
+
+  if (!fromElem || !toElem) {
+    return undefined;
+  }
+
+  const fheight = Number(fromElem.height.replace("px", ""));
+  const fwidth = Number(fromElem.width.replace("px", ""));
+
+  const theight = Number(toElem.height.replace("px", ""));
+  const tWeight = Number(toElem.width.replace("px", ""));
 
   try {
-    const fromCenter = [
-      fromElem.top + fromElem.height / 2,
-      fromElem.left + fromElem.width / 2,
-    ];
-    const toElemCenter = [
-      toElem.top + toElem.height / 2,
-      toElem.left + toElem.width / 2,
-    ];
+    const fromCenter = [fromElem.top + fheight / 2, fromElem.left + fwidth / 2];
+    const toElemCenter = [toElem.top + theight / 2, toElem.left + tWeight / 2];
 
-    const totalWeight =
-      fromElem.height + fromElem.width + toElem.height + toElem.width;
+    const totalWeight = fheight + fwidth + theight + tWeight;
 
-    const fromWeight = fromElem.height + fromElem.width;
-    const toWeight = toElem.height + toElem.width;
+    const fromWeight = fheight + fwidth;
+    const toWeight = theight + tWeight;
 
     const distance = Math.hypot(
       fromCenter[0] - toElemCenter[0],
