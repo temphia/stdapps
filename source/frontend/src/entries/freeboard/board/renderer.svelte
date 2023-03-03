@@ -8,6 +8,7 @@
   export let links: Link[] = [];
   export let link_start_name: string | null;
   export let meta = {};
+  export let epoch_store = {}
   export const getMeta = () => ({ ...__block_pos });
 
   let _meta = { ...meta };
@@ -76,6 +77,8 @@
         on:new_link_end
         on:delete_block
 
+        epoch={epoch_store[block.slug] || 0}
+        
         height={blockmeta["height"]}
         width={blockmeta["width"]}
         left={blockmeta["left"]}

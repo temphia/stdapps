@@ -9,6 +9,7 @@
   export let link_start_name: string | null;
   export let meta;
   export let getMeta;
+  export let epoch_store = {}
 
   const dispatch = createEventDispatcher();
 
@@ -22,6 +23,7 @@
     {blocks}
     {links}
     {meta}
+    {epoch_store}
     bind:getMeta
     on:new_link_start
     on:new_link_end

@@ -11,6 +11,7 @@
   export let width = "10rem";
   export let height = "5rem";
   export let is_open = true;
+  export let epoch = 0;
 
   console.log("|> RENDERING WITH", {
     top,
@@ -264,12 +265,14 @@
   /> -->
 
   <div class="p-2 w-full">
-    {#if is_open}
-      <slot />
-    {:else}
-      <span class="title font-bold text-lg">
-        {name}
-      </span>
-    {/if}
+    {#key epoch}
+      {#if is_open}
+        <slot />
+      {:else}
+        <span class="title font-bold text-lg">
+          {name}
+        </span>
+      {/if}
+    {/key}
   </div>
 </div>

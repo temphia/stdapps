@@ -100,6 +100,7 @@
 
   $: _link_start_name = null;
   $: _links = extractLinks(blocks);
+  $: _force_render_epoch_store_thing = {}
 
   $: console.log("@blocks", blocks);
 
@@ -120,6 +121,8 @@
         const idx = blocks.findIndex((value) => value["slug"] == block.slug);
         blocks[idx] = formatBlock(resp.data);
         blocks = [...blocks];
+
+        _force_render_epoch_store_thing[bid] = (_force_render_epoch_store_thing[bid] || 0) + 1
       },
       onClose: () => {
         modal.close_big();
@@ -143,6 +146,7 @@
       bind:getMeta
       {meta}
       link_start_name={_link_start_name}
+      epoch_store={_force_render_epoch_store_thing}
       {blocks}
       links={_links}
       on:new_link_start={(ev) => (_link_start_name = ev.detail)}
