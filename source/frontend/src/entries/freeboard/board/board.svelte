@@ -7,17 +7,22 @@
   export let blocks: Block[] = [];
   export let links: Link[] = [];
   export let link_start_name: string | null;
+  export let meta;
+  export let getMeta;
 
   const dispatch = createEventDispatcher();
 
   $: console.log("|> @links", links);
   $: console.log("|> @blocks", blocks);
+  $: console.log("|> @meta", meta);
 </script>
 
 <BoardLayout {link_start_name} onClear={() => dispatch("new_link_cancel")}>
   <Renderer
     {blocks}
     {links}
+    {meta}
+    bind:getMeta
     on:new_link_start
     on:new_link_end
     on:edit_block

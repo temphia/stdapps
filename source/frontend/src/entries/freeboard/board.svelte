@@ -5,7 +5,6 @@
   import BoardInner from "./board/board.svelte";
   import NewBlock from "./board/panels/new_block.svelte";
   import { extractLinks, formatBlock } from "./service/format";
-  import BlockItem from "./board/block_item.svelte";
   import NewLink from "./board/panels/new_link.svelte";
   import SingleEdit from "./board/single_edit.svelte";
 
@@ -19,6 +18,8 @@
 
   let loading = true;
   let blocks = [];
+  let meta = {};
+  let getMeta;
 
   const load = async () => {
     loading = true;
@@ -32,6 +33,20 @@
 
     console.log("@formatted_blocks", blocks);
     console.log("@raw", resp.data);
+
+    const resp2 = await service.get_board_meta(key);
+    if (resp2.ok) {
+      
+      console.log("meta_data", resp2.data)
+
+      const raw = resp2.data["value"] || "{}";
+
+      try {
+        meta = JSON.parse(raw);
+      } catch (error) {
+        meta = {};
+      }
+    }
 
     loading = false;
   };
@@ -104,23 +119,29 @@
 
         const idx = blocks.findIndex((value) => value["slug"] == block.slug);
         blocks[idx] = formatBlock(resp.data);
-        blocks = [...blocks]
+        blocks = [...blocks];
       },
       onClose: () => {
         modal.close_big();
       },
     });
   };
+
+  const saveMeta = () => {
+    service.update_board_meta(key, getMeta());
+  };
 </script>
 
 <RootLayout
   name="Freeboard"
-  actions={{ "↻": load, "+": new_block, "🏠": home, "💾": () => {} }}
+  actions={{ "↻": load, "+": new_block, "🏠": home, "💾": saveMeta }}
 >
   {#if loading}
     <div>Loading</div>
   {:else}
     <BoardInner
+      bind:getMeta
+      {meta}
       link_start_name={_link_start_name}
       {blocks}
       links={_links}

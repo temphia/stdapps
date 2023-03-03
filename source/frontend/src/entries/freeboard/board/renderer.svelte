@@ -7,11 +7,18 @@
   export let blocks: Block[] = [];
   export let links: Link[] = [];
   export let link_start_name: string | null;
+  export let meta = {};
+  export const getMeta = () => ({ ...__block_pos });
 
-  $: __block_pos = {};
+  let _meta = { ...meta };
+
+  console.log("@renderer_meta", _meta)
+
+  $: __block_pos = { ..._meta };
   $: _zoom_level = 1;
 
-  $: console.log("@all_pos", __block_pos)
+  $: console.log("@all_pos", __block_pos);
+
 </script>
 
 <div class="h-screen w-screen overflow-auto">
@@ -54,6 +61,7 @@
       "
   >
     {#each blocks as block}
+      {@const blockmeta = _meta[block.slug] || {}}
       <Draggable
         {link_start_name}
         name={block.slug}
@@ -67,6 +75,12 @@
         on:new_link_start
         on:new_link_end
         on:delete_block
+
+        height={blockmeta["height"]}
+        width={blockmeta["width"]}
+        left={blockmeta["left"]}
+        top={blockmeta["top"]}
+        is_open={blockmeta["is_open"]}
       >
         <BlockItem {block} edit={false} />
       </Draggable>

@@ -3,9 +3,22 @@
   import { tick } from "svelte/internal";
 
   export let name;
+  export let link_start_name = undefined;
+
+  // there are saved to meta
   export let top = Math.floor(Math.random() * 400);
   export let left = Math.floor(Math.random() * 400);
-  export let link_start_name = undefined;
+  export let width = "10rem";
+  export let height = "5rem";
+  export let is_open = true;
+
+  console.log("|> RENDERING WITH", {
+    top,
+    left,
+    width,
+    height,
+    is_open,
+  });
 
   const dispatch = createEventDispatcher();
 
@@ -94,22 +107,36 @@
       name,
       top: elmnt.offsetTop,
       left: elmnt.offsetLeft,
-      height: elmnt.offsetHeight,
-      width: elmnt.offsetWidth,
+      height: elmnt.offsetHeight + "px",
+      width: elmnt.offsetWidth + "px",
+      is_open,
     });
   };
 
-  onMount(dispatchPosition);
+  onMount(async () => {
+    elmnt.style.height = height;
+    elmnt.style.width = width;
+
+    const observer = new MutationObserver((muts) => {
+      muts.forEach((mut) => {
+        if (mut.type === "attributes" && mut.attributeName === "style") {
+          dispatchPosition();
+        }
+      });
+    });
+
+    observer.observe(elmnt, {
+      attributes: true,
+    });
+
+    await tick();
+    dispatchPosition();
+  });
 
   // actions
-
-  $: __open = true;
   $: __link_mode = link_start_name && link_start_name !== name;
   $: __mouse_over = false;
   $: __drop_mode = __mouse_over && __link_mode;
-
-  let width = "10rem";
-  let height = "5rem";
 </script>
 
 <div
@@ -130,7 +157,7 @@
       <button
         class="text-gray-800 text-sm "
         on:click={() => {
-          if (__open) {
+          if (is_open) {
             height = elmnt.style.height;
             width = elmnt.style.width;
             elmnt.style.height = "5rem";
@@ -139,13 +166,13 @@
             elmnt.style.height = height;
             elmnt.style.width = width;
           }
-          __open = !__open;
+          is_open = !is_open;
           tick().then(dispatchPosition);
         }}
       >
         <svg
           fill="currentColor"
-          class="bi bi-triangle-fill w-3.5 h-3.5 p-0.5 transition-all {__open
+          class="bi bi-triangle-fill w-3.5 h-3.5 p-0.5 transition-all {is_open
             ? 'rotate-90'
             : 'rotate-180'}"
           viewBox="0 0 16 16"
@@ -237,7 +264,7 @@
   /> -->
 
   <div class="p-2 w-full">
-    {#if __open}
+    {#if is_open}
       <slot />
     {:else}
       <span class="title font-bold text-lg">
