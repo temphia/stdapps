@@ -5,14 +5,14 @@
 
 <slot />
 
-<div class="fixed bottom-10 left-10">
-  {#if link_start_name}
-    <span class="bg-white rounded"
+{#if link_start_name}
+  <div class="fixed bottom-10 bg-yellow-400 rounded-lg p-1 left-1/2 -translate-x-1/2">
+    <span class="text-gray-600"
       >Click on the block you want to link to or cancel.</span
     >
     <button
       on:click={onClear}
-      class="p-0 w-12 h-12 bg-red-600 rounded-full hover:bg-red-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none"
+      class="p-0 w-8 h-8 bg-red-600 rounded-full hover:bg-red-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none"
     >
       <svg
         fill="none"
@@ -28,5 +28,5 @@
         />
       </svg>
     </button>
-  {/if}
-</div>
+  </div>
+{/if}
