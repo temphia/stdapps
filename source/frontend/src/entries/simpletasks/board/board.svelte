@@ -35,7 +35,7 @@
         {/each}
 
         <button
-          class="mt-3 text-gray-600 hover:bg-gray-600 rounded"
+          class="mt-3 text-gray-600 hover:bg-gray-100 rounded p-1"
           on:click={() => dispatch("add_card", group)}
         >
           Add a card...
