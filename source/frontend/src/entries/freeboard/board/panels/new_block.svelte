@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Block, BoardTypes } from "../../service/boardtypes";
-  import { generateId } from "../../service/id";
+  import { generateId } from "../../../common/id";
 
   export let onSave: (data: Block) => void;
 

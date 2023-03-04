@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { generateId } from "../service/id";
+  import { generateId } from "../../common/id";
 
   export let onSave: (data: { slug: string; name: string }) => void;
 
