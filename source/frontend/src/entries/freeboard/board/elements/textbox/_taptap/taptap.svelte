@@ -176,7 +176,10 @@
         </ButtonToggle>
 
         <ButtonToggle
-          on:click={() => editor.chain().focus().toggleCode().run()}
+          on:click={() => {
+            console.log("@aaaa")
+            editor.chain().focus().toggleCode().run()
+          }}
           disabled={!editor.can().chain().focus().toggleCode().run()}
           {editor}
         >
