@@ -1,11 +1,18 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import type { Task, TaskBoard } from "../service";
+  import { formatTasks } from "./format_tasks";
+
   export let board: TaskBoard;
   export let tasks: Task[];
+
+  const dispatch = createEventDispatcher();
+
+  let ptasks = formatTasks(board, tasks);
 </script>
 
 <div class="flex grow p-4 items-start overflow-x-scroll">
-  {#each (board.groups || []) as group}
+  {#each board.groups || [] as group}
     <div class="rounded bg-gray-200  flex-shrink-0 w-64 p-2 mr-3">
       <div class="flex justify-between py-1">
         <h3 class="text-sm">{group.name}</h3>
@@ -19,15 +26,20 @@
         >
       </div>
       <div class="text-sm mt-2">
-        <!-- {#each group.items as item}
+        {#each ptasks[group.slug] || [] as item}
           <div
             class="bg-white p-2 rounded mt-1 border-b border-gray-800 cursor-pointer hover:bg-gray-200 "
           >
-            {item.title}
+            {item.name}
           </div>
-        {/each} -->
+        {/each}
 
-        <p class="mt-3 text-gray-dark">Add a card...</p>
+        <button
+          class="mt-3 text-gray-600 hover:bg-gray-600 rounded"
+          on:click={() => dispatch("add_card", group)}
+        >
+          Add a card...
+        </button>
       </div>
     </div>
   {/each}

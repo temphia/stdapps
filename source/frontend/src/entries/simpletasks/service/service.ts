@@ -113,9 +113,9 @@ export interface TaskGroup {
 
 export interface Task {
   slug: string;
-  info: string;
+  name: string;
   group: string;
-  board: string;
+  tags: string[]
 }
 
 interface TaskData {}
