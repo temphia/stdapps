@@ -1,4 +1,4 @@
-import type Modal from "../../common/modal.svelte";
+import type { Modal } from "../../common/modal";
 import type { TasksService } from "./service";
 
 export const KEY = {};
