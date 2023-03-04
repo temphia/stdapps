@@ -29,7 +29,10 @@
   const new_board = () => {
     modal.show_small(NewBoard, {
       onSave: async (data) => {
-        const resp = await service.add_board(data["slug"], data);
+        await service.add_board(data["slug"], data);
+
+        modal.close_small();
+
         load();
       },
     });
@@ -42,6 +45,7 @@
   <Board
     onGoBack={() => {
       current_board = null;
+      load();
     }}
     bind:board={current_board}
   />

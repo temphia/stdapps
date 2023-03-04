@@ -35,9 +35,13 @@
           groups: [...(board.groups || []), {  slug, name }],
         });
 
+        modal.close_small()
+
         const resp = await service.get_board(board.slug);
         board = formatValue(resp.data);
         loading = false;
+
+        
       },
     });
   };
