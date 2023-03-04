@@ -38,7 +38,7 @@
             </button>
 
             <button
-              on:click={() => dispatch("edit_group", group)}
+              on:click={() => dispatch("delete_group", group)}
               class="p-1 hover:bg-green-500 rounded capitalize text-gray-700"
             >
               <span> Delete Group </span>
@@ -49,9 +49,16 @@
       <div class="text-sm mt-2">
         {#each ptasks[group.slug] || [] as item}
           <div
-            class="bg-white p-2 rounded mt-1 border-b border-gray-800 cursor-pointer hover:bg-gray-200 "
+            class="bg-white p-2 rounded mt-1 border-b border-gray-800 cursor-pointer hover:bg-gray-200 flex justify-between"
           >
             {item.name}
+
+            <button
+              class="text-gray-600 hover:bg-gray-100 rounded p-1 text-xs"
+              on:click={() => dispatch("edit_task_data")}
+            >
+              edit
+            </button>
           </div>
         {/each}
 
