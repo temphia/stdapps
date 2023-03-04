@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import Dropdown from "../../common/autotable/_dropdown.svelte";
   import type { Task, TaskBoard } from "../service";
   import { formatTasks } from "./format_tasks";
 
@@ -16,14 +17,34 @@
     <div class="rounded bg-gray-200  flex-shrink-0 w-64 p-2 mr-3">
       <div class="flex justify-between py-1">
         <h3 class="text-sm">{group.name}</h3>
-        <svg
-          class="h-4 fill-current text-gray-dark cursor-pointer"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          ><path
-            d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"
-          /></svg
-        >
+
+        <Dropdown>
+          <svg
+            slot="ident"
+            class="h-4 fill-current text-gray-dark cursor-pointer"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            ><path
+              d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"
+            /></svg
+          >
+
+          <div class="text-xs cursor-pointer flex flex-col">
+            <button
+              on:click={() => dispatch("edit_group", group)}
+              class="p-1 hover:bg-green-500 rounded capitalize text-gray-700"
+            >
+              <span> Edit Group</span>
+            </button>
+
+            <button
+              on:click={() => dispatch("edit_group", group)}
+              class="p-1 hover:bg-green-500 rounded capitalize text-gray-700"
+            >
+              <span> Delete Group </span>
+            </button>
+          </div>
+        </Dropdown>
       </div>
       <div class="text-sm mt-2">
         {#each ptasks[group.slug] || [] as item}

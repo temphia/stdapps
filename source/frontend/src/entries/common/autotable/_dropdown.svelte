@@ -32,11 +32,14 @@
 
 <div class="relative" bind:this={menuRef}>
   <div>
-    <button
-      on:click={() => (show = !show)}
-      class="menu focus:outline-none focus:shadow-solid p-2 shadow border rounded"
-    >
-      Options
+    <button on:click={() => (show = !show)}>
+      <slot name="ident">
+        <span
+          class="menu focus:outline-none focus:shadow-solid p-2 shadow border rounded"
+        >
+          Options</span
+        >
+      </slot>
     </button>
 
     {#if show}
