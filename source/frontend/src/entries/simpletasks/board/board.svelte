@@ -71,13 +71,11 @@
           <div
             draggable="true"
             on:dragstart={(ev) => {
-              console.log("@drag_start");
               fromGroup = group.slug;
               moveTask = item;
               toGroup = null;
             }}
             on:dragend={(ev) => {
-              console.log("@drag_end", fromGroup, moveTask, toGroup);
               if (toGroup) {
                 dispatch("complete_task_group_move", {
                   task: moveTask,
