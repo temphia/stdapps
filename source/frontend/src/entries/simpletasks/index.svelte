@@ -4,6 +4,7 @@
   import Tailwind from "../common/tailwind.svelte";
   import { setContext } from "svelte";
   import Tasks from "./_tasks.svelte";
+  import Modal from "../common/modal.svelte";
 
   export let env: Environment;
 
@@ -23,6 +24,8 @@
     get_modal: () => modal,
   });
 </script>
+
+<Modal bind:modal />
 
 {#if loading}
   <div>loading...</div>
