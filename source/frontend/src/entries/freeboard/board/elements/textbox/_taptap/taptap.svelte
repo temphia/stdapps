@@ -200,50 +200,50 @@
 {/if}
 <div class="p-2" bind:this={element} />
 
-<style>
+<style global>
   /* Basic editor styles */
-  :global(.ProseMirror > * + *) {
+  .ProseMirror > * + * {
     margin-top: 0.75em;
   }
-  :global(.ProseMirror ul, .ProseMirror ol) {
+  .ProseMirror ul,
+  .ProseMirror ol {
     padding: 0 1rem;
   }
-  :global(
-      .ProseMirror h1,
-      .ProseMirror h2,
-      .ProseMirror h3,
-      .ProseMirror h4,
-      .ProseMirror h5,
-      .ProseMirror h6
-    ) {
+
+  .ProseMirror h1,
+  .ProseMirror h2,
+  .ProseMirror h3,
+  .ProseMirror h4,
+  .ProseMirror h5,
+  .ProseMirror h6 {
     line-height: 1.1;
   }
-  :global(.ProseMirror code) {
+  .ProseMirror code {
     background-color: rgba(97, 97, 97, 0.1);
     color: #616161;
   }
-  :global(.ProseMirror pre) {
+  .ProseMirror pre {
     background: #0d0d0d;
     color: #fff;
     font-family: "JetBrainsMono", monospace;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
   }
-  :global(.ProseMirror pre code) {
+  .ProseMirror pre code {
     color: inherit;
     padding: 0;
     background: none;
     font-size: 0.8rem;
   }
-  :global(.ProseMirror img) {
+  .ProseMirror img {
     max-width: 100%;
     height: auto;
   }
-  :global(.ProseMirror blockquote) {
+  .ProseMirror blockquote {
     padding-left: 1rem;
     border-left: 2px solid rgba(13, 13, 13, 0.1);
   }
-  :global(.ProseMirror hr) {
+  .ProseMirror hr {
     border: none;
     border-top: 2px solid rgba(13, 13, 13, 0.1);
     margin: 2rem 0;
