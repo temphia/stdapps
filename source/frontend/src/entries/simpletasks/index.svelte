@@ -1,6 +1,15 @@
 <script lang="ts">
   import type { Environment } from "../../lib";
+  import { TasksService } from "./service";
+  import OldTasks from "./old/index.svelte";
+  import Tailwind from "../common/tailwind.svelte";
+
   export let env: Environment;
 </script>
 
-<div>New Tasks Entry here</div>
+<OldTasks />
+
+<Tailwind />
+
+
+<div class="hidden bg-green-400"></div>

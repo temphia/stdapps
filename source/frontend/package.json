@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build:freeboard": "ENTRY_FILE=freeboard rollup -c config/rollup.config.js ",
+    "build:simpletasks": "ENTRY_FILE=simpletasks rollup -c config/rollup.config.js ",
     "build:tldraw": "rollup -c config/tldraw_rollup.config.js",
     "build": "rollup -c",
     "dev": "rollup -c -w",
