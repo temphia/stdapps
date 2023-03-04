@@ -96,6 +96,7 @@
       on:edit_group={(ev) => edit_group(ev.detail)}
       on:delete_group={(ev) => delete_group(ev.detail)}
       on:edit_task_data={(ev) => edit_task_data(ev.detail)}
+      on:complete_task_move={(ev) => console.log("@move", ev.detail)}
     />
   {/if}
 </RootLayout>

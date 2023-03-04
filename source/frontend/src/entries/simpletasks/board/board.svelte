@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   import Dropdown from "../../common/autotable/_dropdown.svelte";
-  import type { Task, TaskBoard } from "../service";
+  import type { Task, TaskBoard, TaskGroup } from "../service";
   import { formatTasks } from "./format_tasks";
 
   export let board: TaskBoard;
@@ -10,11 +10,31 @@
   const dispatch = createEventDispatcher();
 
   let ptasks = formatTasks(board, tasks);
+
+  let fromGroup;
+  let toGroup;
+  let moveTask;
+
+  $: console.log("@from/@to |>", fromGroup, toGroup);
 </script>
 
 <div class="flex grow p-4 items-start overflow-x-scroll">
   {#each board.groups || [] as group}
-    <div class="rounded bg-gray-200  flex-shrink-0 w-64 p-2 mr-3">
+    <div
+      class="rounded bg-gray-200  flex-shrink-0 w-64 p-2 mr-3 {toGroup ===
+      group.slug
+        ? 'border-blue-600 border-2'
+        : ''}"
+      on:dragover={() => {
+        console.log("@dragover");
+        if (fromGroup === group.slug) {
+          toGroup = null;
+          return;
+        }
+
+        toGroup = group.slug;
+      }}
+    >
       <div class="flex justify-between py-1">
         <h3 class="text-sm">{group.name}</h3>
 
@@ -49,7 +69,28 @@
       <div class="text-sm mt-2">
         {#each ptasks[group.slug] || [] as item}
           <div
-            class="bg-white p-2 rounded mt-1 border-b border-gray-800 cursor-pointer hover:bg-gray-200 flex justify-between"
+            draggable="true"
+            on:dragstart={(ev) => {
+              console.log("@drag_start");
+              fromGroup = group.slug;
+              moveTask = item;
+              toGroup = null;
+            }}
+            on:dragend={(ev) => {
+              console.log("@drag_end", fromGroup, moveTask, toGroup);
+              if (toGroup) {
+                dispatch("complete_task_group_move", {
+                  task: moveTask,
+                  from_group: fromGroup,
+                  to_group: toGroup,
+                });
+              }
+
+              fromGroup = null;
+              moveTask = null;
+              toGroup = null;
+            }}
+            class="bg-white p-2 rounded mt-1 border-b border-gray-800 hover:bg-gray-200 flex justify-between select-none cursor-move"
           >
             {item.name}
 
