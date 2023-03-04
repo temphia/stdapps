@@ -2,7 +2,7 @@
   import StarterKit from "@tiptap/starter-kit";
   import { Editor } from "@tiptap/core";
   import { onMount } from "svelte";
-  import ButtonToggle from "./button_toggle.svelte";
+  import ButtonToggle from "./_button_toggle.svelte";
 
   export let content = "<p>Hello World! 🌍️ </p>";
   export let editor = null;

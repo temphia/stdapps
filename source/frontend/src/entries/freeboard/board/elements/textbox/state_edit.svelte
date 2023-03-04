@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Taptap from "./_taptap/taptap.svelte";
+  import Taptap from "../../../../common/taptap/taptap.svelte";
   export let data: object = {};
 
   let editor;
