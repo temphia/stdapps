@@ -9,4 +9,4 @@
 
 </script>
 
-<Taptap bind:editor content={data["content"] || ""} />
+<Taptap bind:editor content={data["content"]} />

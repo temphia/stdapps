@@ -4,6 +4,6 @@
   $: console.log("@data??", data);
 </script>
 
-<div>
+<div class="text-sm">
   {@html data["content"] || ""}
 </div>
