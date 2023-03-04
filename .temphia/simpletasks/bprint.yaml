@@ -1,0 +1,12 @@
+name: SimpleTasks
+slug: simpletasks
+type: bundle
+description: Simple kanban board for managing your tasks.
+version: current
+env_file: .temphia/simpletasks/.env
+files:
+  schema.json: .temphia/simpletasks/schema.json
+  plug.schema.json: .temphia/simpletasks/plug.schema.json
+  server.js: source/backend/simpletasks/server.js
+  client.js: source/frontend/public/build/simpletasks.js
+  client.css: source/frontend/public/build/simpletasks.css
