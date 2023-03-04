@@ -24,7 +24,7 @@ export class TasksService {
 
   add_board(id: string, data: TaskBoard) {
     return this.state_api.add(id, JSON.stringify(data), {
-      tag1s: ["board"],
+      tag1: "board",
     });
   }
 
@@ -96,14 +96,14 @@ export class TasksService {
   }
 }
 
-interface TaskBoard {
+export interface TaskBoard {
   id: string;
   name: string;
   info: string;
   groups: TaskGroup[];
 }
 
-interface TaskGroup {
+export interface TaskGroup {
   id: string;
   name: string;
 }
@@ -111,7 +111,7 @@ interface TaskGroup {
 // task state is stored in two place "meta data" in Task and
 // actual task data in TaskData
 
-interface Task {
+export interface Task {
   id: string;
   info: string;
   group: string;
