@@ -97,14 +97,14 @@ export class TasksService {
 }
 
 export interface TaskBoard {
-  id: string;
+  slug: string;
   name: string;
   info: string;
   groups: TaskGroup[];
 }
 
 export interface TaskGroup {
-  id: string;
+  slug: string;
   name: string;
 }
 
@@ -112,7 +112,7 @@ export interface TaskGroup {
 // actual task data in TaskData
 
 export interface Task {
-  id: string;
+  slug: string;
   info: string;
   group: string;
   board: string;

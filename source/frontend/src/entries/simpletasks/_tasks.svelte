@@ -43,7 +43,7 @@
     onGoBack={() => {
       current_board = null;
     }}
-    board={current_board}
+    bind:board={current_board}
   />
 {:else}
   <RootLayout name="SimpleTasks" actions={{ "↻": load, "+": new_board }}>
@@ -69,9 +69,9 @@
           icon: "trash",
         },
       ]}
-      action_key="key"
+      action_key="slug"
       key_names={[
-        ["key", "Key"],
+        ["slug", "Slug"],
         ["name", "Name"],
       ]}
     />
