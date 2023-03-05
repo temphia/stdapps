@@ -18,6 +18,8 @@
 </script>
 
 <div class="flex flex-col">
+  <div class="text-2xl text-indigo-900 mb-2">New Task Group</div>
+
   <p class="text-red-500">{message}</p>
 
   <div class="mb-4">
