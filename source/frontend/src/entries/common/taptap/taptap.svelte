@@ -1,6 +1,8 @@
 <script>
   import StarterKit from "@tiptap/starter-kit";
   import { Editor } from "@tiptap/core";
+  import Image from '@tiptap/extension-image'
+
   import { onMount } from "svelte";
   import Toolbar from "./_toolbar.svelte";
 
@@ -9,10 +11,15 @@
 
   let element = null;
 
+  Image.configure({
+    allowBase64: true,
+    inline: true,
+  })
+
   onMount(() => {
     editor = new Editor({
       element: element,
-      extensions: [StarterKit],
+      extensions: [Image, StarterKit],
       content,
       onTransaction: () => {
         // force re-render so `editor.isActive` works as expected
