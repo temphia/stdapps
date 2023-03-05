@@ -3,9 +3,9 @@
   import RootLayout from "../common/root_layout.svelte";
   import { Block, Board, Context, KEY } from "./service";
   import BoardInner from "./board/board.svelte";
-  import NewBlock from "./board/panels/new_block.svelte";
+  import NewBlock from "./panels/new_block.svelte";
   import { extractLinks, formatBlock } from "./service/format";
-  import NewLink from "./board/panels/new_link.svelte";
+  import NewLink from "./panels/new_link.svelte";
   import SingleEdit from "./board/single_edit.svelte";
 
   export let key: string;
