@@ -5,8 +5,8 @@
   let editor;
 
   export const getValue = () => ({ content: editor.getHTML() });
-  
-
 </script>
 
-<Taptap bind:editor content={data["content"]} />
+<div class="overflow-auto" style="height:calc(100vh - 4em);">
+  <Taptap bind:editor content={data["content"]} />
+</div>
