@@ -4,6 +4,7 @@
   import Layout from "./_layout.svelte";
   import TaskEdit from "./_task_edit.svelte";
   import type { Context, TaskBoard } from "../service";
+  import { generateId } from "../../common/id";
 
   export let board: TaskBoard;
   export let context: Context;
@@ -12,8 +13,8 @@
   let edit;
   let getValue;
 
-  let task_data;
-  let comments;
+  let task_data = {};
+  let comments = [];
   let loading = true;
 
   const service = context.get_service();
@@ -67,6 +68,21 @@
   {:else if edit}
     <TaskEdit data={task_data} bind:getValue />
   {:else}
-    <Comment />
+    <Comment
+      {comments}
+      onComment={async (msg) => {
+        loading = true;
+
+        await service.add_task_comment(id, generateId(), {
+          user: "user1",
+          content: msg,
+          time: new Date().toISOString(),
+        });
+
+        load()
+
+
+      }}
+    />
   {/if}
 </Layout>
