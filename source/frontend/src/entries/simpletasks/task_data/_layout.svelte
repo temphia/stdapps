@@ -9,8 +9,8 @@
 </script>
 
 <div class="h-full flex flex-col max-h-screen">
-  <div class="flex justify-between">
-    <nav class="flex flex-row border h-10 flex-shrink-0">
+  <div class="flex justify-between border">
+    <nav class="flex flex-row h-10 flex-shrink-0">
       <button
         on:click={() => {
           edit = true;
