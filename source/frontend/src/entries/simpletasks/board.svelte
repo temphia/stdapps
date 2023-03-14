@@ -1,6 +1,13 @@
 <script lang="ts">
   import { getContext } from "svelte";
-  import { KEY, TaskBoard, Context, formatValue, TaskGroup, Task } from "./service";
+  import {
+    KEY,
+    TaskBoard,
+    Context,
+    formatValue,
+    TaskGroup,
+    Task,
+  } from "./service";
   import RootLayout from "../common/root_layout.svelte";
   import NewGroup from "./panels/new_group.svelte";
   import BoardInner from "./board/board.svelte";
@@ -79,6 +86,20 @@
     });
   };
 
+  const complete_task_move = async (data: {
+    task: Task;
+    from_group: string;
+    to_group: string;
+  }) => {
+    loading = true;
+    await service.update_task(board.slug, data.task.slug, {
+      ...data.task,
+      group: data.to_group,
+    });
+
+    load();
+  };
+
   load();
 </script>
 
@@ -96,7 +117,7 @@
       on:edit_group={(ev) => edit_group(ev.detail)}
       on:delete_group={(ev) => delete_group(ev.detail)}
       on:edit_task_data={(ev) => edit_task_data(ev.detail)}
-      on:complete_task_move={(ev) => console.log("@move", ev.detail)}
+      on:complete_task_group_move={(ev) => complete_task_move(ev.detail)}
     />
   {/if}
 </RootLayout>
