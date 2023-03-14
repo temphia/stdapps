@@ -94,7 +94,7 @@
 
             <button
               class="text-gray-600 hover:bg-gray-100 rounded p-1 text-xs"
-              on:click={() => dispatch("edit_task_data")}
+              on:click={() => dispatch("edit_task_data", item)}
             >
               edit
             </button>

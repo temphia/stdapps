@@ -83,6 +83,7 @@ export class TasksService {
   }
 
   async remove_task(id: string) {
+    // fixme => delete comments
     await this.state_api.delete(`data-${id}`);
     return this.state_api.delete(id);
   }
@@ -93,6 +94,24 @@ export class TasksService {
 
   update_task_data(bid: string, id: string, data: TaskData) {
     return this.state_api.update(`data-${id}`, JSON.stringify(data));
+  }
+
+  // comments
+
+  list_task_comment(tid: string) {
+    return this.state_api.query({
+      tag1s: [`comment-${tid}`],
+    });
+  }
+
+  add_task_comment(tid: string, id: string, data: any) {
+    return this.state_api.add(id, JSON.stringify(data), {
+      tag1: `comment-${tid}`,
+    });
+  }
+
+  remove_task_comment(id: string) {
+    return this.state_api.delete(id);
   }
 }
 
@@ -115,7 +134,7 @@ export interface Task {
   slug: string;
   name: string;
   group: string;
-  tags: string[]
+  tags: string[];
 }
 
 interface TaskData {}

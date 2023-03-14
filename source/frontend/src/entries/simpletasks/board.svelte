@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getContext } from "svelte";
-  import { KEY, TaskBoard, Context, formatValue, TaskGroup } from "./service";
+  import { KEY, TaskBoard, Context, formatValue, TaskGroup, Task } from "./service";
   import RootLayout from "../common/root_layout.svelte";
   import NewGroup from "./panels/new_group.svelte";
   import BoardInner from "./board/board.svelte";
@@ -71,11 +71,11 @@
 
   const delete_group = (group: TaskGroup) => {};
 
-  const edit_task_data = (id: string) => {
+  const edit_task_data = (task: Task) => {
     modal.show_big(EditTaskData, {
       board,
       context: ctx,
-      id: id,
+      id: task.slug,
     });
   };
 
