@@ -1,14 +1,18 @@
 <script lang="ts">
-  import { formatValue, TasksService } from "../service";
+  import { formatValue, Task, TasksService } from "../service";
   import Comment from "./_comment.svelte";
   import Layout from "./_layout.svelte";
   import TaskEdit from "./_task_edit.svelte";
   import type { Context, TaskBoard } from "../service";
   import { generateId } from "../../common/id";
+  import EditTask from "../panels/edit_task.svelte";
 
   export let board: TaskBoard;
   export let context: Context;
-  export let id: string;
+  export let task: Task;
+  export let relaodBoard;
+
+  let id = task.slug;
 
   let edit;
   let getValue;
@@ -40,6 +44,23 @@
   };
 
   load();
+
+  const metaUpdate = async () => {
+    modal.close_big();
+    modal.show_small(EditTask, {
+      ...task,
+
+      onSave: async (data) => {
+        await service.update_task(board.slug, task.slug, {
+          ...task,
+          ...data,
+        });
+        modal.close_small();
+
+        relaodBoard && relaodBoard();
+      },
+    });
+  };
 </script>
 
 <Layout
@@ -61,6 +82,7 @@
 
     modal.close_big();
   }}
+  onEditMeta={metaUpdate}
   onClose={() => modal.close_big()}
 >
   {#if loading}
@@ -79,9 +101,7 @@
           time: new Date().toISOString(),
         });
 
-        load()
-
-
+        load();
       }}
     />
   {/if}

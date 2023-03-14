@@ -82,7 +82,8 @@
     modal.show_big(EditTaskData, {
       board,
       context: ctx,
-      id: task.slug,
+      task,
+      relaodBoard: () => load(),
     });
   };
 
