@@ -23,7 +23,7 @@
   const modal = ctx.get_modal();
 
   let loading = true;
-  let tasks = [];
+  let tasks: Task[] = [];
 
   const load = async () => {
     loading = true;
@@ -70,9 +70,40 @@
 
   const edit_group = (group: TaskGroup) => {
     modal.show_small(EditGroup, {
-      board,
-      context: ctx,
       group,
+      onEdit: async (data: TaskGroup) => {
+        const groupIdx = board.groups.findIndex((v) => v.slug === data.slug);
+        board.groups[groupIdx] = data;
+        loading = true;
+
+        modal.close_small();
+
+        await service.update_board(board.slug, board);
+
+        const resp = await service.get_board(board.slug);
+        board = formatValue(resp.data);
+        loading = false
+      },
+      onDelete: async () => {
+        loading = true;
+
+        modal.close_small();
+
+        await service.update_board(board.slug, {
+          ...board,
+          groups: board.groups.filter((v) => v.slug !== group.slug),
+        });
+
+        await Promise.all(
+          tasks
+            .filter((vt: Task) => vt.group === group.slug)
+            .map((v) => service.remove_task(v.slug))
+        );
+
+        const resp = await service.get_board(board.slug);
+        board = formatValue(resp.data);
+        loading = false
+      },
     });
   };
 
