@@ -17,7 +17,9 @@ export class FreeBoard {
       return;
     }
     const data = resp.data["data"] || {};
-    this.state_api = this.env.GetPlugStateTktAPI(data["state_tkt"]);
+
+    const execam = await this.env.GetExecApiManager();
+    this.state_api = execam.new_plug_state(data["state_tkt"]);
   };
 
   list_boards() {
@@ -94,7 +96,7 @@ export class FreeBoard {
     if (resp1.ok) {
       return resp1;
     }
-    
+
     return resp;
   }
 }
