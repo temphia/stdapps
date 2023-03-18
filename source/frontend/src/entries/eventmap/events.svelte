@@ -13,20 +13,6 @@
       contents: "something happended",
     }
   ];
-
-  /*
-  
-  data_types
-    - event_point
-    - device_beacon
-  
-  agents
-    - viewer
-    - injester
-    
-  */
-
-
 </script>
 
 {#each events as event}

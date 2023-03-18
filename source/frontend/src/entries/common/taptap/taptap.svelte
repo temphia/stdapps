@@ -13,7 +13,6 @@
 
   Image.configure({
     allowBase64: true,
-    inline: true,
   })
 
   onMount(() => {

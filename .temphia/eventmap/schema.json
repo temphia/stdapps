@@ -1,0 +1,16 @@
+{
+  "type": "bundle",
+  "items": [
+    {
+      "name": "eventmap_app",
+      "type": "plug",
+      "file": "plug.schema.json"
+    },
+
+    {
+      "name": "data",
+      "type": "data_group",
+      "file": "data.schema.json"
+    }
+  ]
+}

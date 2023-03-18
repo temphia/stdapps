@@ -1,0 +1,50 @@
+{
+  "name": "EventMap Data",
+  "slug": "emdata",
+  "description": "this a data store for a event map app.",
+  "tables": [
+    {
+      "name": "Events",
+      "slug": "events",
+      "main_column": "title",
+      "columns": [
+        {
+          "name": "Title",
+          "slug": "title",
+          "ctype": "shorttext",
+          "not_nullable": true
+        },
+        {
+          "name": "Contents",
+          "slug": "contents",
+          "ctype": "longtext"
+        },
+
+        {
+          "name": "Location",
+          "slug": "location",
+          "ctype": "location"
+        }
+      ]
+    },
+    {
+      "name": "Event Types",
+      "slug": "ettypes",
+      "main_column": "name",
+      "columns": [
+        {
+          "name": "name",
+          "slug": "name",
+          "ctype": "shorttext",
+          "not_nullable": true
+        },
+        {
+          "name": "Exta Meta",
+          "slug": "extrameta",
+          "ctype": "json"
+        }
+      ]
+    }
+  ],
+  "exec_order": ["ettypes", "events"]
+}
