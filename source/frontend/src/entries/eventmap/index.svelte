@@ -1,5 +1,6 @@
 <script lang="ts">
   import RootLayout from "../common/root_layout.svelte";
+  import Tailwind from "../common/tailwind.svelte";
   import Events from "./events.svelte";
   import Map from "./map/map.svelte";
 
@@ -17,3 +18,5 @@
     </div>
   </div>
 </RootLayout>
+
+<Tailwind />
