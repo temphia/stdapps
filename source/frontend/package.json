@@ -17,6 +17,7 @@
     "@tldraw/core": "*",
     "@tldraw/tldraw": "*",
     "@tsconfig/svelte": "^1.0.0",
+    "@types/leaflet": "^1.9.3",
     "autoprefixer": "^10.1.0",
     "postcss": "^8.2.2",
     "postcss-load-config": "^3.0.0",

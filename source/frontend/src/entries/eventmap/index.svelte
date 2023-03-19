@@ -1,22 +1,21 @@
 <script lang="ts">
-  import RootLayout from "../common/root_layout.svelte";
   import Tailwind from "../common/tailwind.svelte";
-  import Events from "./events.svelte";
-  import Map from "./map/map.svelte";
-
+  import Eventman from "./eventman.svelte";
+  import { EventmapService } from "./service";
   export let env: any;
+
+  const service = new EventmapService(env);
+
+  let loading = true;
+  const load = async () => {
+    loading = true;
+
+    
+  };
+
+  load()
 </script>
 
-<RootLayout name="Eventmap">
-  <div class="flex flex-grow max-h-screen flex-col md:flex-row bg-white">
-    <div class="md:w-2/3 md:h-full h-1/2">
-      <Map />
-    </div>
-
-    <div class="md:w-1/3 md:h-full h-1/2 flex flex-col gap-2 p-2 overflow-auto">
-      <Events />
-    </div>
-  </div>
-</RootLayout>
+<Eventman />
 
 <Tailwind />

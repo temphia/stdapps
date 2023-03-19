@@ -11,7 +11,7 @@
     {
       title: "Title 1",
       contents: "something happended",
-    }
+    },
   ];
 </script>
 
@@ -43,5 +43,3 @@
     </div>
   </div>
 {/each}
-
-
