@@ -6,7 +6,9 @@ version: current
 env_file: .temphia/eventmap/.env
 files:
   schema.json: .temphia/eventmap/schema.json
-  plug.schema.json: .temphia/eventmap/plug.schema.json
   server.js: source/backend/eventmap/server.js
   client.js: source/frontend/public/build/eventmap.js
   client.css: source/frontend/public/build/eventmap.css
+  data.schema.json: .temphia/eventmap/data.schema.json
+  plug.schema.json: .temphia/eventmap/plug.schema.json
+  data_resource.json: .temphia/eventmap/data_resource.json

@@ -1,0 +1,5 @@
+{
+  "name": "Event Data",
+  "type": "data_group",
+  "target_ref": "data"
+}
