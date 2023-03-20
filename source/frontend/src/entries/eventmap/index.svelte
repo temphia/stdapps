@@ -1,6 +1,6 @@
 <script lang="ts">
   import Tailwind from "../common/tailwind.svelte";
-  import Eventman from "./eventman.svelte";
+  import Eventmap from "./eventmap.svelte";
   import { EventmapService } from "./service";
   export let env: any;
 
@@ -18,6 +18,6 @@
   load()
 </script>
 
-<Eventman />
+<Eventmap />
 
 <Tailwind />
