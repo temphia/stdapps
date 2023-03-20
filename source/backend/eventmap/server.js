@@ -1,15 +1,12 @@
 function action_load(params) {
     core.log("@loaded_start")
-
-    const [itkt, ierr] = plugkv.get_ticket({})
-    if (ierr) {
-        core.log("@merr" + ierr)
-        return utils.err_response(ierr)
+  
+  	const [dbtoken, err] = self.module_execute("maindb", "ticket", "", {})
+    if (err) {
+      return utils.err_response(err)
     }
-
-    core.log("@loaded_end")
-
+    
     return utils.ok_response({
-        state_tkt: itkt,
+        dbtoken,
     })
 }
