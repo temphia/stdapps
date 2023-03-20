@@ -1,6 +1,6 @@
 <script lang="ts">
   import RootLayout from "../common/root_layout.svelte";
-  import Events from "./events.svelte";
+  import Events from "./events/index.svelte";
   import Map from "./map/map.svelte";
 </script>
 
