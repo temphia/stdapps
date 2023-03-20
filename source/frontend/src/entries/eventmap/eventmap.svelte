@@ -10,7 +10,7 @@
       <Map />
     </div>
 
-    <div class="md:w-1/3 md:h-full h-1/2 flex flex-col gap-2 p-2 overflow-auto">
+    <div class="md:w-1/3 md:h-full h-1/2 flex flex-col overflow-auto">
       <Events />
     </div>
   </div>

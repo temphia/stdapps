@@ -4,7 +4,7 @@
   let mode: "device" | "event" = "device";
 </script>
 
-<div class="h-10 flex flex-row flex-nowrap">
+<div class="h-10 flex flex-row flex-nowrap border">
   <Tab
     name="Events"
     onClick={(opt) => {}}
