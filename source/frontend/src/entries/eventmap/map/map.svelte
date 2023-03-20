@@ -2,9 +2,7 @@
   import L from "leaflet";
   import { createMap, createMarker } from "./map_utils";
 
-  let map;
-
-  const markerLocations = [
+  export let markerLocations = [
     [29.8283, -96.5795],
     [37.8283, -90.5795],
     [43.8283, -102.5795],
@@ -16,7 +14,9 @@
 
   const initialView = [39.8283, -98.5795];
 
+  let map;
   let markerLayers;
+
   function mapAction(container) {
     map = createMap(container, initialView);
 
@@ -27,6 +27,9 @@
     }
 
     markerLayers.addTo(map);
+
+    console.log("@maplayers", markerLayers);
+    console.log("@map", map);
 
     return {
       destroy: () => {
@@ -53,7 +56,7 @@
 />
 <div class="map" style="height:100%;width:100%;min-height:200px;" use:mapAction>
   <div class="relative">
-    <button class="absolute bg-slate-500 rounded p-2">HELLO</button>
+    <button class="absolute bg-slate-500 rounded p-2 z-auto">HELLO</button>
   </div>
 </div>
 

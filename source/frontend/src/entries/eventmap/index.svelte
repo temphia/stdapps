@@ -10,6 +10,8 @@
   const load = async () => {
     loading = true;
 
+    await service.load()
+
     
   };
 
