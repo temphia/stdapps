@@ -2,15 +2,7 @@
   import L from "leaflet";
   import { createMap, createMarker } from "./utils";
 
-  export let markerLocations = [
-    [29.8283, -96.5795],
-    [37.8283, -90.5795],
-    [43.8283, -102.5795],
-    [48.4, -122.5795],
-    [43.6, -79.5795],
-    [36.8283, -100.5795],
-    [38.4, -122.5795],
-  ];
+  export let events = [];
 
   const initialView = [39.8283, -98.5795];
 
@@ -21,8 +13,8 @@
     map = createMap(container, initialView);
 
     markerLayers = L.layerGroup();
-    for (let location of markerLocations) {
-      let m = createMarker(location);
+    for (let evt of events) {
+      let m = createMarker(evt);
       markerLayers.addLayer(m);
     }
 
@@ -56,7 +48,7 @@
 />
 <div class="map" style="height:100%;width:100%;min-height:200px;" use:mapAction>
   <div class="relative">
-    <button class="absolute bg-slate-500 rounded p-2 z-auto">HELLO</button>
+
   </div>
 </div>
 

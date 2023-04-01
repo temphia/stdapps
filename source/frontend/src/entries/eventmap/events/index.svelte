@@ -1,8 +1,11 @@
 <script>
-  import List from "./list.svelte";
-  import Layout from "./_layout.svelte";
+  import Event from "./event.svelte";
+  export let event_types = [];
+  export let events = [];
 </script>
 
-<Layout>
-  <List />
-</Layout>
+<div class="p-1 overflow-auto">
+  {#each events as evnt}
+    <Event contents={evnt.contents} title={evnt.name} />
+  {/each}
+</div>

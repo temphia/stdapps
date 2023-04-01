@@ -50,55 +50,7 @@
           "ctype": "json"
         }
       ]
-    },
-
-    {
-      "name": "Devices",
-      "slug": "devices",
-      "main_column": "name",
-      "columns": [
-        {
-          "name": "name",
-          "slug": "name",
-          "ctype": "shorttext",
-          "not_nullable": true
-        },
-        {
-          "name": "Exta Meta",
-          "slug": "extrameta",
-          "ctype": "json"
-        }
-      ]
-    },
-
-    {
-      "name": "Device Beacons",
-      "slug": "dbeacons",
-      "main_column": "name",
-      "columns": [
-        {
-          "name": "name",
-          "slug": "name",
-          "ctype": "shorttext",
-          "not_nullable": true
-        },
-        {
-          "name": "Location",
-          "slug": "location",
-          "ctype": "location"
-        },
-        {
-          "name": "Occured At",
-          "slug": "occuredat",
-          "ctype": "datetime"
-        },
-        {
-          "name": "Exta Meta",
-          "slug": "extrameta",
-          "ctype": "json"
-        }
-      ]
     }
   ],
-  "exec_order": ["ettypes", "events", "devices", "dbeacons"]
+  "exec_order": ["ettypes", "events"]
 }

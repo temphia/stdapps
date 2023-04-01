@@ -16,10 +16,15 @@ export const createMap = (container, initialView) => {
   return m;
 };
 
-const library = `<svg style="width:30px;height:30px" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>`;
+const defaultIcon = `<svg  viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                </svg>
+`;
 
-export const markerIcon = (label) => {
-  let html = `<div class="map-marker"><div>${library}</div><div class="marker-text">${label}</div></div>`;
+export const markerIcon = (icon, label) => {
+  let html = `<div class="map-marker"><div>${
+    icon ? icon : defaultIcon
+  }</div><div class="marker-text">${label}</div></div>`;
   return L.divIcon({
     html,
     className: "map-marker",
@@ -50,21 +55,19 @@ export const bindPopup = (marker, createFn) => {
   });
 };
 
-export const createMarker = (loc) => {
-  let count = Math.ceil(Math.random() * 25);
-  let icon = markerIcon(count);
-  let marker = L.marker(loc, { icon });
+export const createMarker = (event) => {
+  let icon = markerIcon(event.icon, event.id);
+  let marker = L.marker(event.point, { icon });
   bindPopup(marker, (m) => {
     let c = new MarkerPopup({
       target: m,
       props: {
-        count,
+        event,
       },
     });
 
     c.$on("change", ({ detail }) => {
-      count = detail;
-      marker.setIcon(markerIcon(count));
+      console.log("@change", detail);
     });
 
     return c;
