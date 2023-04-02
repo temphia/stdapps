@@ -52,7 +52,10 @@
   ];
 </script>
 
-<RootLayout name="Eventmap">
+<RootLayout name="Eventmap" actions={{
+  "↻": () => {},
+  "#️⃣": () => {},
+}}>
   <div class="flex flex-grow max-h-screen flex-col md:flex-row bg-white">
     <div class="md:w-2/3 md:h-full h-1/2">
       <Map {events} />
