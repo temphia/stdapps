@@ -7,8 +7,10 @@ env_file: .temphia/eventmap/.env
 files:
   schema.json: .temphia/eventmap/schema.json
   server.js: source/backend/eventmap/server.js
-  client.js: source/frontend/public/build/eventmap.js
-  client.css: source/frontend/public/build/eventmap.css
+  client_main.js: source/frontend/public/build/eventmap_main.js
+  client_main.css: source/frontend/public/build/eventmap_main.css
+  client_emitter.js: source/frontend/public/build/eventmap_emitter.js
+  client_emitter.css: source/frontend/public/build/eventmap_emitter.css
   data.schema.json: .temphia/eventmap/data.schema.json
   plug.schema.json: .temphia/eventmap/plug.schema.json
   data_resource.json: .temphia/eventmap/data_resource.json

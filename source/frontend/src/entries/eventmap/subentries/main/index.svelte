@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Tailwind from "../common/tailwind.svelte";
+  import Tailwind from "../../../common/tailwind.svelte";
   import Eventmap from "./eventmap.svelte";
-  import { EventmapService } from "./service";
+  import { EventmapService } from "../../service";
   export let env: any;
 
   const service = new EventmapService(env);

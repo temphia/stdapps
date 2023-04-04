@@ -1,7 +1,7 @@
 <script lang="ts">
-  import RootLayout from "../common/root_layout.svelte";
-  import Events from "./events/index.svelte";
-  import Map from "./map/map.svelte";
+  import RootLayout from "../../../common/root_layout.svelte";
+  import Events from "../../events/index.svelte";
+  import Map from "../../map/map.svelte";
 
   const event_types = [
     {

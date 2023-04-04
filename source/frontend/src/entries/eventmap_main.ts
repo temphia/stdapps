@@ -1,9 +1,9 @@
-import Eventmap from "./eventmap/index.svelte";
+import EventmapMain from "./eventmap/subentries/main/index.svelte";
 import { registerPlugFactory } from "../lib";
 
 registerPlugFactory("eventmap.main", (opts) => {
-  new Eventmap({
-    target: opts["target"] || document.getElementById("plugroot"),
+  new EventmapMain({
+    target: opts["target"],
     props: {
       env: opts.env,
     },

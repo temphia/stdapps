@@ -13,8 +13,29 @@
       "entry_file": "server.js",
       "web_loader": "std.loader",
       "web_files": {
-        "client.js": "client.js",
-        "client.css": "client.css"
+        "client.js": "client_main.js",
+        "client.css": "client_main.css"
+      },
+      "resources": [
+        {
+          "name": "maindb",
+          "ref_name": "data_resource"
+        }
+      ]
+    },
+    {
+      "name": "emitter",
+      "type": "web",
+      "executor": "javascript1",
+      "iface_file": "",
+      "web_entry": "eventmap.emitter.main",
+      "web_script": "client.js",
+      "web_style": "client.css",
+      "entry_file": "server.js",
+      "web_loader": "std.loader",
+      "web_files": {
+        "client.js": "client_emitter.js",
+        "client.css": "client_emitter.css"
       },
       "resources": [
         {
