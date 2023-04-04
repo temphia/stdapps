@@ -6,6 +6,6 @@
 
 <div class="p-1 overflow-auto">
   {#each events as evnt}
-    <Event contents={evnt.contents} title={evnt.name} />
+    <Event contents={evnt.contents} title={evnt.title} />
   {/each}
 </div>

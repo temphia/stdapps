@@ -7,17 +7,25 @@
   const service = new EventmapService(env);
 
   let loading = true;
+  let message = "";
+
   const load = async () => {
     loading = true;
-
-    await service.load()
-
-    
+    message = await service.load();
+    loading = false;
   };
 
-  load()
+  load();
 </script>
 
-<Eventmap />
+{#if loading}
+  <div>Loading..</div>
+{:else if message}
+  <div class="text-red-500">
+    {message}
+  </div>
+{:else}
+  <Eventmap {service} />
+{/if}
 
 <Tailwind />

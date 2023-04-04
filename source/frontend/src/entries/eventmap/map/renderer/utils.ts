@@ -56,8 +56,10 @@ export const bindPopup = (marker, createFn) => {
 };
 
 export const createMarker = (event) => {
-  let icon = markerIcon(event.icon, event.id);
-  let marker = L.marker(event.point, { icon });
+  console.log("@creating_maker", event)
+
+  let icon = markerIcon(event.icon, event.__id);
+  let marker = L.marker(event.location, { icon });
   bindPopup(marker, (m) => {
     let c = new MarkerPopup({
       target: m,

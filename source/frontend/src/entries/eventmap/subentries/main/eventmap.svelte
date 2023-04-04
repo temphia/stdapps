@@ -2,67 +2,27 @@
   import RootLayout from "../../../common/root_layout.svelte";
   import Events from "../../events/index.svelte";
   import Map from "../../map/map.svelte";
+  import type { EventmapService } from "../../service";
 
-  const event_types = [
-    {
-      name: "Mango",
-      info: "Event one example.",
-      icon: "",
-      options: {},
-    },
+  export let service: EventmapService;
 
-    {
-      name: "Apple",
-      info: "Event one example.",
-      icon: "",
-      options: {},
-    },
-  ];
-
-  const events = [
-    {
-      id: 1,
-      name: "event1",
-      event_type: "event1",
-      contents: "Something happended",
-      options: {},
-      images: [],
-      point: [29.8283, -96.5795],
-    },
-
-    {
-      id: 2,
-      name: "event2",
-      event_type: "event2",
-      contents: "Something happended2",
-      options: {},
-      images: [],
-      point: [37.8283, -90.5795],
-    },
-
-    {
-      id: 3,
-      name: "event3",
-      event_type: "event1",
-      contents: "Something happended",
-      options: {},
-      images: [],
-      point: [43.8283, -102.5795],
-    },
-  ];
+  const state = service.state;
 </script>
 
-<RootLayout name="Eventmap" actions={{
-  "↻": () => {},
-  "#️⃣": () => {},
-}}>
+<RootLayout
+  name="Eventmap"
+  actions={{
+    "↻": () => {},
+    "#️⃣": () => {},
+  }}
+>
   <div class="flex flex-grow max-h-screen flex-col md:flex-row bg-white">
     <div class="md:w-2/3 md:h-full h-1/2">
-      <Map {events} />
+      <Map events={$state.events} />
     </div>
 
     <div class="md:w-1/3 md:h-full h-1/2 flex flex-col overflow-auto">
-      <Events {event_types} {events} />
+      <Events event_types={$state.event_types} events={$state.events} />
     </div>
   </div>
 </RootLayout>

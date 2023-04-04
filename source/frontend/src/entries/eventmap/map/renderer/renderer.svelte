@@ -14,6 +14,10 @@
 
     markerLayers = L.layerGroup();
     for (let evt of events) {
+      if (!evt.location) {
+        continue;
+      }
+
       let m = createMarker(evt);
       markerLayers.addLayer(m);
     }
@@ -47,9 +51,7 @@
   crossorigin=""
 />
 <div class="map" style="height:100%;width:100%;min-height:200px;" use:mapAction>
-  <div class="relative">
-
-  </div>
+  <div class="relative" />
 </div>
 
 <style>
