@@ -3,7 +3,7 @@ import { registerPlugFactory } from "../lib";
 
 registerPlugFactory("simpletasks.main", (opts) => {
   new SimpleTasks({
-    target: opts["target"] || document.getElementById("plugroot"),
+    target: opts["target"],
     props: {
       env: opts.env,
     },
