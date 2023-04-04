@@ -1,8 +1,9 @@
 <script>
   import Tailwind from "../common/tailwind.svelte";
-  import SimpleDoc from "../simpledoc/index.svelte";
+
+  import Emitter from "../eventmap/subentries/emitter/index.svelte";
 </script>
 
-<SimpleDoc />
+<Emitter />
 
 <!-- <Tailwind /> -->
