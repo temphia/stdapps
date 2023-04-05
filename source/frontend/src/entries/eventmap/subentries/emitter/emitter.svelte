@@ -1,5 +1,8 @@
-<script>
+<script lang="ts">
+  import type { Environment } from "temphia-frontend/dist/cjs/engine/environment";
   import Location from "./_location.svelte";
+  export let env: Environment;
+  export let event_types = [];
 </script>
 
 <header class=" text-2xl font-bold">New Event</header>
@@ -16,8 +19,9 @@
     <label for="" class="pb-2 text-gray-700 font-semibold">Event Type</label>
 
     <select class="p-2 rounded-lg bg-gray-100 outline-none focus:bg-gray-200">
-      <option>XYZ</option>
-      <option>MNO</option>
+      {#each event_types as evt}
+        <option value={evt.__id}>{evt.name}</option>
+      {/each}
     </select>
   </div>
 
