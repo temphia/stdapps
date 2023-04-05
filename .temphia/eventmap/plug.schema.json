@@ -10,7 +10,7 @@
       "web_entry": "eventmap.main",
       "web_script": "client.js",
       "web_style": "client.css",
-      "entry_file": "server.js",
+      "entry_file": "server_main.js",
       "web_loader": "std.loader",
       "web_files": {
         "client.js": "client_main.js",
@@ -31,7 +31,7 @@
       "web_entry": "eventmap.emitter.main",
       "web_script": "client.js",
       "web_style": "client.css",
-      "entry_file": "server.js",
+      "entry_file": "server_emitter.js",
       "web_loader": "std.loader",
       "web_files": {
         "client.js": "client_emitter.js",
