@@ -6,13 +6,15 @@
 
   export let service: EventmapService;
 
+  export const onReload = () => {};
+
   const state = service.state;
 </script>
 
 <RootLayout
   name="Eventmap"
   actions={{
-    "↻": () => {},
+    "↻": onReload,
     "#️⃣": () => {},
   }}
 >

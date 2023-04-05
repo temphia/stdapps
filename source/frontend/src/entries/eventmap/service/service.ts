@@ -1,7 +1,11 @@
 import type { Environment } from "../../../lib";
 import type { DataAPI } from "temphia-frontend/dist/cjs/apiv2/data";
 import type { ExecAM } from "temphia-frontend/dist/cjs/exec/exec_am";
-import type { Sockd, SockdMessage } from "temphia-frontend/dist/cjs/sockd";
+import {
+  MESSAGE_SERVER_PUBLISH,
+  Sockd,
+  SockdMessage,
+} from "temphia-frontend/dist/cjs/sockd";
 import { Writable, writable } from "svelte/store";
 
 export interface State {
@@ -63,6 +67,31 @@ export class EventmapService {
   };
 
   handle_sockd = (msg: SockdMessage) => {
+    if (msg.type === MESSAGE_SERVER_PUBLISH) {
+      const table = msg.payload["table"];
+      if (table !== "events") {
+        return;
+      }
+
+      const rows_data: any[] =
+        msg.payload["rows"].length == 1
+          ? [msg.payload["data"]]
+          : msg.payload["data"] || [];
+
+      switch (msg.payload["mod_type"]) {
+        case "insert":
+          this.state.update((old) => ({
+            ...old,
+            events: [...old.events, ...rows_data],
+          }));
+
+          break;
+
+        default:
+          break;
+      }
+    }
+
     console.log("@sockd_msg", msg);
   };
 }

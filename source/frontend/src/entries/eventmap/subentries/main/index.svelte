@@ -25,7 +25,7 @@
     {message}
   </div>
 {:else}
-  <Eventmap {service} />
+  <Eventmap {service} onReload={load} />
 {/if}
 
 <Tailwind />
