@@ -1,5 +1,10 @@
 function action_emit(params) {
-    Core.Log("@hell" + JSON.stringify(params))
+    const [resp, err] = self.module_execute("maindb", "new_row", "0/events", JSON.parse(utils.ab2str(params.data)))
+    if (err) {
+        return utils.err_response(err)
+    }
+
+    return utils.ok_response(resp)
 }
 
 function action_load(params) {

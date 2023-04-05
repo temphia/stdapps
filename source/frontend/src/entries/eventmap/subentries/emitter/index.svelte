@@ -8,6 +8,7 @@
 
   let event_types = [];
   let message = "";
+  let final = false;
 
   const load = async () => {
     loading = true;
@@ -17,6 +18,17 @@
     } else {
       event_types = (resp.data["data"] || {})["event_types"] || [];
     }
+    loading = false;
+  };
+
+  const emit = async (data) => {
+    loading = true;
+    const resp = await env.PreformAction("emit", data);
+    if (!resp.ok) {
+      message = resp.data;
+      return;
+    }
+    final = true
     loading = false;
   };
 
@@ -32,8 +44,21 @@
   >
     {#if loading}
       <p>Loading...</p>
+    {:else if message}
+      <p class="text-red-500">{message}</p>
+    {:else if final}
+      <div>
+        <h2>Event emited!</h2>
+        <button
+          on:click={() => {
+            message = "";
+            final = false;
+          }}
+          class="text-blue-500 underline">create new</button
+        >
+      </div>
     {:else}
-      <Emitter {event_types} {env} />
+      <Emitter {event_types} {env} onEmit={emit} />
     {/if}
   </div>
 </div>
