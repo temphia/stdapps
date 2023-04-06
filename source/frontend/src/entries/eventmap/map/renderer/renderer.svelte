@@ -7,7 +7,7 @@
   export let events = [];
   export let service: EventmapService;
 
-  const initialView = [39.8283, -98.5795];
+  const initialView = [11.2646, 58.1835];
 
   let map;
   let markerLayers;
@@ -24,7 +24,7 @@
   };
 
   function mapAction(container, _events: object[]) {
-    map = createMap(container, initialView, 5);
+    map = createMap(container, initialView, 3);
 
     service.map_utils = {
       get_map: () => map,

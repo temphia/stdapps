@@ -5,8 +5,7 @@
   import type { EventmapService } from "../../service";
 
   export let service: EventmapService;
-
-  export const onReload = () => {};
+  export let onReload = () => {};
 
   const state = service.state;
 </script>
