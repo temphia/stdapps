@@ -1,10 +1,9 @@
-<script>
-  import { createEventDispatcher } from "svelte";
+<script lang="ts">
   import Event from "./event.svelte";
+  import type { EventmapService } from "../service";
   export let event_types = [];
   export let events = [];
-
-  const dispatch = createEventDispatcher();
+  export let service: EventmapService;
 </script>
 
 <div class="p-1 overflow-auto">
@@ -12,7 +11,13 @@
     <Event
       contents={evnt.contents}
       title={evnt.title}
-      onClick={() => dispatch("click_event", evnt)}
+      onClick={() => {
+        if (service.map_utils && evnt.location) {
+          const map = service.map_utils.get_map();
+
+          map.panTo(evnt.location);
+        }
+      }}
     />
   {/each}
 </div>

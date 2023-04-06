@@ -1,9 +1,12 @@
 <script lang="ts">
   import L from "leaflet";
-  import { createMap, createMarker, extractLatLongFromWKT } from "./utils";
-  import { tick, beforeUpdate, afterUpdate } from "svelte";
+  import { createMap, createMarker } from "./utils";
+  import { beforeUpdate, afterUpdate } from "svelte";
+  import type { EventmapService } from "../../service";
 
   export let events = [];
+  export let service: EventmapService;
+
   const initialView = [39.8283, -98.5795];
 
   let map;
@@ -12,15 +15,8 @@
   const addEvent = (lg, evt) => {
     let location = evt["location"];
 
-    console.log("@rendening", evt, location);
-
     if (!location) {
       return;
-    }
-
-    if (typeof location === "string" && location.startsWith("SRID=")) {
-      evt["location"] = extractLatLongFromWKT(location);
-      console.log("@formatted_event", evt);
     }
 
     let m = createMarker(evt);
@@ -29,6 +25,12 @@
 
   function mapAction(container, _events: object[]) {
     map = createMap(container, initialView, 5);
+
+    service.map_utils = {
+      get_map: () => map,
+      get_event_layers: () => markerLayers,
+    };
+
     return {
       destroy: () => {
         map.remove();
@@ -38,10 +40,7 @@
   }
 
   beforeUpdate(() => {
-    console.log("@before_update");
     if (markerLayers) {
-      console.log("@clear_layers");
-
       markerLayers.clearLayers();
       markerLayers = null;
     }
@@ -49,15 +48,12 @@
 
   afterUpdate(() => {
     if (map) {
-      console.log("@new_group1", events);
-
       const newlg = L.layerGroup();
 
       for (let evt of events) {
         addEvent(newlg, evt);
       }
 
-      console.log("@clearlayers");
       console.log("@add_layer", newlg.addTo(map));
       markerLayers = newlg;
     }

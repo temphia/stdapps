@@ -7,16 +7,24 @@ import {
   SockdMessage,
 } from "temphia-frontend/dist/cjs/sockd";
 import { Writable, writable } from "svelte/store";
+import { extractLatLongFromWKT } from "../map/renderer/utils";
 
 export interface State {
   event_types: object[];
   events: object[];
 }
 
+export interface MapUtils {
+  get_map(): any;
+  get_event_layers: any;
+}
+
 export class EventmapService {
   env: Environment;
   sockd: Sockd;
   state: Writable<State>;
+
+  map_utils: MapUtils;
 
   api_service: ApiService;
 
@@ -80,6 +88,18 @@ export class EventmapService {
 
       switch (msg.payload["mod_type"]) {
         case "insert":
+          rows_data.forEach((evt) => {
+            let location = evt["location"];
+
+            if (!location) {
+              return;
+            }
+            
+            if (typeof location === "string" && location.startsWith("SRID=")) {
+              evt["location"] = extractLatLongFromWKT(location);
+            }
+          });
+
           this.state.update((old) => ({
             ...old,
             events: [...old.events, ...rows_data],

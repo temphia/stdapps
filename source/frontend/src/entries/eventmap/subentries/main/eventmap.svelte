@@ -20,11 +20,15 @@
 >
   <div class="flex flex-grow max-h-screen flex-col md:flex-row bg-white">
     <div class="md:w-2/3 md:h-full h-1/2">
-      <Map events={$state.events} />
+      <Map events={$state.events} {service} />
     </div>
 
     <div class="md:w-1/3 md:h-full h-1/2 flex flex-col overflow-auto">
-      <Events event_types={$state.event_types} events={$state.events} />
+      <Events
+        event_types={$state.event_types}
+        events={$state.events}
+        {service}
+      />
     </div>
   </div>
 </RootLayout>

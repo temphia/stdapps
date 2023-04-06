@@ -2,6 +2,8 @@
   export let event;
 </script>
 
-<div style="width:100%;text-align:center;font-weight:600">
-  {event.name}
+<div class="w-full text-center font-semibold">
+  <span class="text-white p-1 rounded">{event.__id}</span>
+
+  {event.title}
 </div>
