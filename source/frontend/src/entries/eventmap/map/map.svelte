@@ -1,6 +1,6 @@
 <script>
   import Renderer from "./renderer/renderer.svelte";
-  export let events = []
+  export let events = [];
 </script>
 
 <Renderer {events} />

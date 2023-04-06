@@ -1,32 +1,34 @@
 <script lang="ts">
   import L from "leaflet";
-  import { createMap, createMarker } from "./utils";
+  import { createMap, createMarker, extractLatLongFromWKT } from "./utils";
+  import { tick, beforeUpdate, afterUpdate } from "svelte";
 
   export let events = [];
-
   const initialView = [39.8283, -98.5795];
 
   let map;
   let markerLayers;
 
-  function mapAction(container) {
-    map = createMap(container, initialView);
+  const addEvent = (lg, evt) => {
+    let location = evt["location"];
 
-    markerLayers = L.layerGroup();
-    for (let evt of events) {
-      if (!evt.location) {
-        continue;
-      }
+    console.log("@rendening", evt, location);
 
-      let m = createMarker(evt);
-      markerLayers.addLayer(m);
+    if (!location) {
+      return;
     }
 
-    markerLayers.addTo(map);
+    if (typeof location === "string" && location.startsWith("SRID=")) {
+      evt["location"] = extractLatLongFromWKT(location);
+      console.log("@formatted_event", evt);
+    }
 
-    console.log("@maplayers", markerLayers);
-    console.log("@map", map);
+    let m = createMarker(evt);
+    lg.addLayer(m);
+  };
 
+  function mapAction(container, _events: object[]) {
+    map = createMap(container, initialView, 5);
     return {
       destroy: () => {
         map.remove();
@@ -34,6 +36,32 @@
       },
     };
   }
+
+  beforeUpdate(() => {
+    console.log("@before_update");
+    if (markerLayers) {
+      console.log("@clear_layers");
+
+      markerLayers.clearLayers();
+      markerLayers = null;
+    }
+  });
+
+  afterUpdate(() => {
+    if (map) {
+      console.log("@new_group1", events);
+
+      const newlg = L.layerGroup();
+
+      for (let evt of events) {
+        addEvent(newlg, evt);
+      }
+
+      console.log("@clearlayers");
+      console.log("@add_layer", newlg.addTo(map));
+      markerLayers = newlg;
+    }
+  });
 </script>
 
 <svelte:window
@@ -50,9 +78,11 @@
   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
   crossorigin=""
 />
-<div class="map" style="height:100%;width:100%;min-height:200px;" use:mapAction>
-  <div class="relative" />
-</div>
+<div
+  class="map h-full w-full"
+  style="min-height:200px;"
+  use:mapAction={events}
+/>
 
 <style>
   .map :global(.marker-text) {

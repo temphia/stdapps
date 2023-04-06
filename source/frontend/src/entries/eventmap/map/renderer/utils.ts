@@ -1,8 +1,8 @@
 import L from "leaflet";
 import MarkerPopup from "./_popup.svelte";
 
-export const createMap = (container, initialView) => {
-  let m = L.map(container, { preferCanvas: true }).setView(initialView, 5);
+export const createMap = (container, initialView, zoom) => {
+  let m = L.map(container, { preferCanvas: true }).setView(initialView, zoom);
   L.tileLayer(
     "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
     {
@@ -56,7 +56,7 @@ export const bindPopup = (marker, createFn) => {
 };
 
 export const createMarker = (event) => {
-  console.log("@creating_maker", event)
+  console.log("@creating_maker", event);
 
   let icon = markerIcon(event.icon, event.__id);
   let marker = L.marker(event.location, { icon });
@@ -76,4 +76,25 @@ export const createMarker = (event) => {
   });
 
   return marker;
+};
+
+export const extractLatLongFromWKT = (wkt) => {
+  const regex = /POINT\(([-+]?[0-9]*\.?[0-9]+) ([-+]?[0-9]*\.?[0-9]+)\)/;
+
+  // Find the first match of the regular expression
+  const match = wkt.match(regex);
+
+  if (!match || match.length !== 3) {
+    // No match was found, or more than one match was found
+    throw new Error(
+      `Unable to extract latitude and longitude from WKT string: ${wkt}`
+    );
+  }
+
+  // Extract and parse latitude and longitude values from the match
+  const latitude = parseFloat(match[1]);
+  const longitude = parseFloat(match[2]);
+
+  // Return the latitude and longitude values
+  return [latitude, longitude];
 };
