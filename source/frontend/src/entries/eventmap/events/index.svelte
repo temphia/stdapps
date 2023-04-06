@@ -11,6 +11,7 @@
     <Event
       contents={evnt.contents}
       title={evnt.title}
+      id={evnt.__id}
       onClick={() => {
         if (service.map_utils && evnt.location) {
           const map = service.map_utils.get_map();
