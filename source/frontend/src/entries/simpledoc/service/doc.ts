@@ -1,5 +1,9 @@
 import { QuillBinding } from "y-quill";
-import { EasyProvider, encodeToBase64, decodeFromBase64 } from "../../common/yjs/easyprovider";
+import {
+  EasyProvider,
+  encodeToBase64,
+  decodeFromBase64,
+} from "../../common/yjs/easyprovider";
 import * as Y from "yjs";
 import { generateId } from "../../common/id";
 import type { Sockd, SockdMessage } from "temphia-frontend/dist/cjs/sockd";
