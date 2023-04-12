@@ -1,5 +1,5 @@
 import { QuillBinding } from "y-quill";
-import { EasyProvider, encodeToBase64, decodeFromBase64 } from "temphia_yjs";
+import { EasyProvider, encodeToBase64, decodeFromBase64 } from "../../common/yjs/easyprovider";
 import * as Y from "yjs";
 import { generateId } from "../../common/id";
 import type { Sockd, SockdMessage } from "temphia-frontend/dist/cjs/sockd";
@@ -42,7 +42,7 @@ export class SimpleDocService {
 
     this.qbind = new QuillBinding(type, this.editor, this.provider.awareness);
 
-    this.provider.start()
+    this.provider.start();
   };
 
   private handle_sockd_remote = (msg: SockdMessage) => {
