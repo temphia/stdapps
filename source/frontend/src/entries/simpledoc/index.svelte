@@ -72,6 +72,9 @@
   />
 </svelte:head>
 
-<div id="editor">SimpleDoc</div>
+<div class="m-1 rounded bg-white h-full">
+  <div id="editor" class="p-1 h-full">document here</div>
+</div>
+
 
 <Tailwind />

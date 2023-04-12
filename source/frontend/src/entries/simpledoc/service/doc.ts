@@ -41,6 +41,8 @@ export class SimpleDocService {
     });
 
     this.qbind = new QuillBinding(type, this.editor, this.provider.awareness);
+
+    this.provider.start()
   };
 
   private handle_sockd_remote = (msg: SockdMessage) => {
