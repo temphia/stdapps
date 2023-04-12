@@ -1,60 +1,19 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import type { Environment } from "../../lib";
   import Tailwind from "../common/tailwind.svelte";
-  import Quill from "quill";
-  import QuillCursors from "quill-cursors";
-
-  import { SimpleDocService } from "./service";
+  import Doc from "./doc.svelte";
+  import { SimpleDocService } from "./service/service";
 
   export let env: Environment;
 
-  let editor;
-  let room_ticket;
-  let service;
+  let service: SimpleDocService;
+  let loading = true;
 
   const load = async () => {
-    const resp = await env.PreformAction("load", {});
-    if (!resp.ok) {
-      return;
+    service = new SimpleDocService(env);
+    if (await service.load()) {
+      loading = false;
     }
-    room_ticket = resp.data["data"]["room_tkt"];
-    newService();
-  };
-
-  onMount(async () => {
-    Quill.register("modules/cursors", QuillCursors);
-
-    editor = new Quill("#editor", {
-      modules: {
-        cursors: true,
-        toolbar: [
-          [{ header: [1, 2, false] }],
-          ["bold", "italic", "underline"],
-          ["image", "code-block"],
-        ],
-      },
-      placeholder: "Start collaborating...",
-      theme: "snow",
-    });
-
-    newService();
-  });
-
-  const newService = async () => {
-    if (!room_ticket || !editor) {
-      return;
-    }
-
-    const eam = await env.GetExecApiManager();
-
-    service = new SimpleDocService(
-      env,
-      (callback) => eam.new_sockd_room(room_ticket, callback),
-      editor
-    );
-
-    await service.init();
   };
 
   load();
@@ -72,9 +31,10 @@
   />
 </svelte:head>
 
-<div class="m-1 rounded bg-white h-full">
-  <div id="editor" class="p-1 h-full">document here</div>
-</div>
-
+{#if loading}
+  <div>Loading...</div>
+{:else}
+  <Doc {service} />
+{/if}
 
 <Tailwind />

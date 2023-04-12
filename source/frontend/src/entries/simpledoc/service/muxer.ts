@@ -15,6 +15,7 @@ export class SockdMuxer {
   sockd: Sockd;
   ticket: string;
   builder: sockd_builder;
+  active: boolean;
 
   subs: Map<string, (msg: DocMessage) => void>;
 
@@ -22,10 +23,12 @@ export class SockdMuxer {
     this.ticket = ticket;
     this.builder = builder;
     this.subs = new Map();
+    this.active = false;
   }
 
   init = async () => {
     this.sockd = await this.builder(this.ticket, this.handle);
+    this.active = true;
   };
 
   send_yjs_message = (docid: string, yjs_data: string) => {

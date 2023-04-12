@@ -6,42 +6,36 @@ import {
 } from "../../common/yjs/easyprovider";
 import * as Y from "yjs";
 import { generateId } from "../../common/id";
-import type { Sockd, SockdMessage } from "temphia-frontend/dist/cjs/sockd";
 import type { Environment } from "../../../lib";
+import type { DocMessage, SockdMuxer } from "./muxer";
 
-type sockd_builder = (callback: (msg: SockdMessage) => void) => Promise<Sockd>;
-
-export class SimpleDocService {
+export class Document {
   editor: any;
-  sbuilder: sockd_builder;
   env: Environment;
 
-  sockd: Sockd;
+  muxer: SockdMuxer;
   provider: EasyProvider;
   id: string;
   qbind: QuillBinding;
 
-  constructor(env: Environment, sbuilder: sockd_builder, editor: any) {
-    this.sbuilder = sbuilder;
+  constructor(editor: any, muxer: SockdMuxer) {
+    this.id = "testdocid" // generateId();
+
+    this.muxer = muxer;
     this.editor = editor;
+
+    this.muxer.add_callback(this.id, this.handle_sockd_remote);
   }
 
   init = async () => {
-    this.sockd = await this.sbuilder(this.handle_sockd_remote);
-
     const ydoc = new Y.Doc();
     const type = ydoc.getText("quill");
 
-    this.id = generateId();
-
     this.provider = new EasyProvider(this.id, ydoc, (data) => {
-      if (!this.sockd) {
+      if (!this.muxer.active) {
         console.log("@sockd_not_ready");
       }
-
-      this.sockd.SendBroadcast({
-        yjs_data: encodeToBase64(data),
-      });
+      this.muxer.send_yjs_message(this.id, encodeToBase64(data));
     });
 
     this.qbind = new QuillBinding(type, this.editor, this.provider.awareness);
@@ -49,8 +43,8 @@ export class SimpleDocService {
     this.provider.start();
   };
 
-  private handle_sockd_remote = (msg: SockdMessage) => {
-    const ydata = msg.payload["yjs_data"];
+  private handle_sockd_remote = (msg: DocMessage) => {
+    const ydata = msg.yjs_data;
     if (!ydata || !this.provider) {
       console.log("@bailing_out", ydata);
       return;
