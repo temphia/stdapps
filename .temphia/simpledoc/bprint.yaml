@@ -1,0 +1,12 @@
+name: SimpleDoc
+slug: simpledoc
+type: bundle
+description: Simple Document editor.
+version: current
+env_file: .temphia/simpledoc/.env
+files:
+  schema.json: .temphia/simpledoc/schema.json
+  plug.schema.json: .temphia/simpledoc/plug.schema.json
+  server.js: source/backend/simpledoc/server.js
+  client.js: source/frontend/public/build/simpledoc.js
+  client.css: source/frontend/public/build/simpledoc.css

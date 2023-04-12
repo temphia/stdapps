@@ -1,0 +1,10 @@
+{
+  "type": "bundle",
+  "items": [
+    {
+      "name": "simpledoc_app",
+      "type": "plug",
+      "file": "plug.schema.json"
+    }
+  ]
+}

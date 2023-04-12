@@ -1,0 +1,21 @@
+{
+  "slug": "simpledoc",
+  "name": "Simpledoc App",
+  "agents": [
+    {
+      "name": "default",
+      "type": "web",
+      "executor": "javascript1",
+      "iface_file": "",
+      "web_entry": "simpledoc.main",
+      "web_script": "client.js",
+      "web_style": "client.css",
+      "entry_file": "server.js",
+      "web_loader": "std.loader",
+      "web_files": {
+        "client.js": "client.js",
+        "client.css": "client.css"
+      }
+    }
+  ]
+}
