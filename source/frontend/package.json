@@ -66,6 +66,8 @@
     "leaflet": "^1.9.3",
     "lory.js": "^2.5.3",
     "postcss": "^8.3.6",
+    "quill": "^1.3.7",
+    "quill-cursors": "^4.0.2",
     "rollup-plugin-json": "^4.0.0",
     "sirv-cli": "^1.0.14",
     "svelte-emoji-selector": "^1.0.1",
@@ -82,6 +84,7 @@
     "temphia-frontend": "https://gitpkg.now.sh/temphia/temphia/code/frontend?dev2",
     "typescript": "^4.6.4",
     "xterm": "^5.0.0",
+    "y-quill": "^0.1.5",
     "yjs": "^13.5.52",
     "yootils": "0.0.17"
   }

@@ -28,6 +28,8 @@ export class EventmapService {
 
   api_service: ApiService;
 
+  fallback_handler: (msg: SockdMessage) => void;
+
   constructor(env: Environment) {
     this.env = env;
     this.state = writable({
@@ -75,41 +77,46 @@ export class EventmapService {
   };
 
   handle_sockd = (msg: SockdMessage) => {
-    if (msg.type === MESSAGE_SERVER_PUBLISH) {
-      const table = msg.payload["table"];
-      if (table !== "events") {
-        return;
+    if (msg.type !== MESSAGE_SERVER_PUBLISH) {
+      if (this.fallback_handler) {
+        this.fallback_handler(msg);
       }
+      return;
+    }
 
-      const rows_data: any[] =
-        msg.payload["rows"].length == 1
-          ? [msg.payload["data"]]
-          : msg.payload["data"] || [];
+    const table = msg.payload["table"];
+    if (table !== "events") {
+      return;
+    }
 
-      switch (msg.payload["mod_type"]) {
-        case "insert":
-          rows_data.forEach((evt) => {
-            let location = evt["location"];
+    const rows_data: any[] =
+      msg.payload["rows"].length == 1
+        ? [msg.payload["data"]]
+        : msg.payload["data"] || [];
 
-            if (!location) {
-              return;
-            }
-            
-            if (typeof location === "string" && location.startsWith("SRID=")) {
-              evt["location"] = extractLatLongFromWKT(location);
-            }
-          });
+    switch (msg.payload["mod_type"]) {
+      case "insert":
+        rows_data.forEach((evt) => {
+          let location = evt["location"];
 
-          this.state.update((old) => ({
-            ...old,
-            events: [...old.events, ...rows_data],
-          }));
+          if (!location) {
+            return;
+          }
 
-          break;
+          if (typeof location === "string" && location.startsWith("SRID=")) {
+            evt["location"] = extractLatLongFromWKT(location);
+          }
+        });
 
-        default:
-          break;
-      }
+        this.state.update((old) => ({
+          ...old,
+          events: [...old.events, ...rows_data],
+        }));
+
+        break;
+
+      default:
+        break;
     }
 
     console.log("@sockd_msg", msg);
