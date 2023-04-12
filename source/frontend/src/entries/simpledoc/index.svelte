@@ -5,4 +5,6 @@
 </script>
 
 
+<div>SimpleDoc</div>
+
 <Tailwind />

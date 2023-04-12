@@ -3,7 +3,7 @@ import { registerPlugFactory } from "../lib";
 
 registerPlugFactory("simpledoc.main", (opts) => {
   new SimpleDoc({
-    target: opts["target"] || document.getElementById("plugroot"),
+    target: opts["target"],
     props: {
       env: opts.env,
     },

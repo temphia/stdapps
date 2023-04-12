@@ -7,6 +7,8 @@
     "build:eventmap": "PRODUCTION=1 ENTRY_FILE=eventmap_main rollup -c config/rollup.config.js ",
     "build:eventmap:emitter": "PRODUCTION=1 ENTRY_FILE=eventmap_emitter rollup -c config/rollup.config.js ",
     "build:tldraw": "rollup -c config/tldraw_rollup.config.js",
+    "build:simpledoc": "ENTRY_FILE=simpledoc rollup -c config/rollup.config.js ",
+
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear"
