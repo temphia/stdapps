@@ -1,10 +1,10 @@
 import { QuillBinding } from "y-quill";
 import Quill from "quill";
 import QuillCursors from "quill-cursors";
-import { EasyProvider } from "temphia_yjs";
+import { EasyProvider } from "./easyprovider";
 import * as Y from "yjs";
-import type { EventmapService } from "../../service";
-import { generateId } from "../../../common/id";
+import type { EventmapService } from "../../eventmap/service";
+import { generateId } from "../../common/id";
 
 export const encodeToBase64 = (uint8Array) => {
   const arrayBuffer = uint8Array.buffer;
@@ -24,7 +24,6 @@ export const decodeFromBase64 = (base64String) => {
   }
   return uint8Array;
 };
-
 
 export const startYjsEditor = (container: string, service: EventmapService) => {
   Quill.register("modules/cursors", QuillCursors);
@@ -57,6 +56,7 @@ export const startYjsEditor = (container: string, service: EventmapService) => {
 
   const binding = new QuillBinding(type, editor, provider.awareness);
 
+  console.log("@ydoc", ydoc);
   console.log("@provider", provider);
   console.log("@binding", binding);
   console.log("@editor", editor);
