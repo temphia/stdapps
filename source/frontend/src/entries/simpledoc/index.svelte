@@ -1,21 +1,64 @@
 <script lang="ts">
+  import { setContext } from "svelte";
   import type { Environment } from "../../lib";
+  import RootLayout from "../common/root_layout.svelte";
   import Tailwind from "../common/tailwind.svelte";
   import Doc from "./doc.svelte";
   import Listings from "./listings.svelte";
   import { SimpleDocService } from "./service/service";
+  import ModalCompo from "../common/modal.svelte";
+  import type { Modal } from "../common/modal";
+  import AddDoc from "./panels/add_doc.svelte";
+  import { formatValue } from "../simpletasks/service";
 
   export let env: Environment;
 
   let service: SimpleDocService;
   let loading = true;
+  let selected;
+  let modal: Modal;
+
+  let docs = [];
 
   const load = async () => {
+    loading = true;
     service = new SimpleDocService(env);
-    if (await service.load()) {
-      loading = false;
+    if (!(await service.load())) {
+      return;
     }
+
+    const resp = await service.doc_api.list_docs();
+    if (!resp.ok) {
+      return;
+    }
+
+    docs = resp.data.map((v) => formatValue(v));
+    loading = false;
   };
+
+  const new_doc = () => {
+    modal.show_small(AddDoc, {
+      onSave: async (data: { slug: string; info: string; name: string }) => {
+        loading = true;
+        const resp = await service.doc_api.add_doc(data.slug, data);
+        if (!resp.ok) {
+          console.log("@err", resp);
+          return;
+        }
+        modal.close_small();
+        service.doc_api.list_docs();
+      },
+    });
+
+    loading = true;
+
+    loading = false;
+  };
+
+  setContext("__simpledoc__", {
+    get_service: () => service,
+    get_modal: () => modal,
+  });
 
   load();
 </script>
@@ -32,12 +75,21 @@
   />
 </svelte:head>
 
-<!-- {#if loading}
-  <div>Loading...</div>
-{:else}
-  <Doc {service} />
-{/if} -->
+<ModalCompo bind:modal />
 
-<Listings />
+<RootLayout name="Simpledoc" actions={{ "↻": load, "+": new_doc }}>
+  {#if loading}
+    <div>Loading...</div>
+  {:else if selected}
+    <Doc {service} />
+  {:else}
+    <Listings
+      {docs}
+      onClick={(slug) => {
+        selected = slug;
+      }}
+    />
+  {/if}
+</RootLayout>
 
 <Tailwind />
