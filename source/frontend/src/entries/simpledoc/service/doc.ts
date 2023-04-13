@@ -19,7 +19,7 @@ export class Document {
   qbind: QuillBinding;
 
   constructor(id: string, editor: any, muxer: SockdMuxer) {
-    this.id = id
+    this.id = id;
 
     this.muxer = muxer;
     this.editor = editor;
@@ -27,9 +27,9 @@ export class Document {
     this.muxer.add_callback(this.id, this.handle_sockd_remote);
   }
 
-  init = async () => {
+  init = async (initialData: any) => {
     const ydoc = new Y.Doc();
-    const type = ydoc.getText("quill");
+    const type = ydoc.getText(initialData);
 
     this.provider = new EasyProvider(this.id, ydoc, (data) => {
       if (!this.muxer.active) {
@@ -42,7 +42,11 @@ export class Document {
 
     this.provider.start();
 
-    console.log("@debug_simple_doc", this)
+    console.log("@debug_simple_doc", this);
+  };
+
+  close = () => {
+    this.muxer.remove_callback(this.id);
   };
 
   private handle_sockd_remote = (msg: DocMessage) => {

@@ -10,6 +10,7 @@
   import type { Modal } from "../common/modal";
   import AddDoc from "./panels/add_doc.svelte";
   import { formatValue } from "../simpletasks/service";
+  import { KEY } from "./service";
 
   export let env: Environment;
 
@@ -46,12 +47,12 @@
           return;
         }
         modal.close_small();
-        load()
+        load();
       },
     });
   };
 
-  setContext("__simpledoc__", {
+  setContext(KEY, {
     get_service: () => service,
     get_modal: () => modal,
   });
@@ -77,7 +78,6 @@
   <div>Loading...</div>
 {:else if selected}
   <Doc
-    {service}
     doc_meta={selected}
     goBack={() => {
       selected = null;
