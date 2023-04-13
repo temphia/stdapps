@@ -9,4 +9,7 @@ files:
   plug.schema.json: .temphia/simpletasks/plug.schema.json
   server.js: source/backend/simpletasks/server.js
   client.js: source/frontend/public/build/simpletasks.js
-  client.css: source/frontend/public/build/simpletasks.css
+  client.css: source/frontend/public/build/simpletasks.css  
+  katex.css: assets/katex.min.css
+  monokai-sublime.css: assets/monokai-sublime.min.css
+  quill_snow.css: assets/quill.snow.css
