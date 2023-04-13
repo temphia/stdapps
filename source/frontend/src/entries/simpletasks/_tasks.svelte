@@ -3,8 +3,9 @@
   import RootLayout from "../common/root_layout.svelte";
   import { Context, formatValue, KEY } from "./service";
   import NewBoard from "./panels/new_board.svelte";
-  import Autotable from "../common/autotable/autotable.svelte";
   import Board from "./board.svelte";
+  import Listings from "../common/listings/listings.svelte";
+  import EditBoard from "./panels/edit_board.svelte";
 
   const ctx = getContext(KEY) as Context;
   const service = ctx.get_service();
@@ -51,33 +52,14 @@
   />
 {:else}
   <RootLayout name="SimpleTasks" actions={{ "↻": load, "+": new_board }}>
-    <Autotable
-      datas={boards}
-      actions={[
-        {
-          Name: "Explore",
-          Action: (id, data) => {
-            current_board = data;
-          },
-          Class: "bg-green-400",
-          icon: "link",
-        },
-
-        {
-          Name: "Delete",
-          Action: async (id) => {
-            await service.remove_board(id);
-            load();
-          },
-          Class: "bg-red-400",
-          icon: "trash",
-        },
-      ]}
-      action_key="slug"
-      key_names={[
-        ["slug", "Slug"],
-        ["name", "Name"],
-      ]}
+    <Listings
+      docs={boards}
+      onEdit={(_board) => {
+        modal.show_small(EditBoard, {});
+      }}
+      onClick={(_board) => {
+        current_board = _board;
+      }}
     />
   </RootLayout>
 {/if}
