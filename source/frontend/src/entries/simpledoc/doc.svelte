@@ -3,7 +3,7 @@
   import RootLayout from "../common/root_layout.svelte";
   import { formatValue } from "../simpletasks/service";
   import QuillEditor from "./_quill_editor.svelte";
-  import { Context, KEY } from "./service";
+  import { Context, Document, KEY } from "./service";
   import SaveDoc from "./panels/save_doc.svelte";
 
   export let doc_meta;
@@ -14,7 +14,7 @@
 
   let data = {};
   let loading = true;
-  let editor;
+  let document: Document;
 
   const load = async () => {
     loading = true;
@@ -29,7 +29,11 @@
   };
 
   const save = () => {
-    const contents = editor.root.innerHTML || "";
+    if (!document) {
+      return;
+    }
+    
+    const contents = document.get_contents();
 
     ctx.get_modal().show_small(SaveDoc, {
       ctx,
@@ -53,6 +57,6 @@
   <div>loading...</div>
 {:else}
   <RootLayout name="Simpledoc [{doc_meta['name']}]" {actions}>
-    <QuillEditor {service} doc_data={data} {doc_meta} bind:editor />
+    <QuillEditor {service} doc_data={data} {doc_meta} bind:document />
   </RootLayout>
 {/if}

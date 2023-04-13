@@ -26,11 +26,12 @@ export class Document {
     this.muxer.add_callback(this.id, this.handle_sockd_remote);
   }
 
-  init = async (initialData: string) => {
+  init = async (data) => {
     const ydoc = new Y.Doc();
-    const type = ydoc.getText(initialData);
-
-    console.log("@with_initial_data", initialData)
+    const text = ydoc.getText("quill");
+    if (data) {
+      Y.applyUpdateV2(ydoc, decodeFromBase64(data));
+    }
 
     this.provider = new EasyProvider(this.id, ydoc, (data) => {
       if (!this.muxer.active) {
@@ -39,15 +40,29 @@ export class Document {
       this.muxer.send_yjs_message(this.id, encodeToBase64(data));
     });
 
-    this.qbind = new QuillBinding(type, this.editor, this.provider.awareness);
-
+    this.qbind = new QuillBinding(text, this.editor, this.provider.awareness);
     this.provider.start();
 
     console.log("@debug_simple_doc", this);
   };
 
+  get_contents = () => {
+    const yjs_state_b64 = encodeToBase64(
+      Y.encodeStateAsUpdateV2(this.qbind.doc)
+    );
+    
+    const quill_state_html = this.editor.root.innerHTML;
+
+    return {
+      yjs_state_b64,
+      quill_state_html,
+    };
+  };
+
   close = () => {
     this.muxer.remove_callback(this.id);
+    this.provider.close();
+    this.qbind.destroy();
   };
 
   private handle_sockd_remote = (msg: DocMessage) => {

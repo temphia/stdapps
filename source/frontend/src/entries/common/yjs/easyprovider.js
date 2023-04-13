@@ -28,6 +28,7 @@ export class EasyProvider extends Observable {
     this.name = name
     this.out_handle = out_handle
     this.synced = false
+    this.synced_emitted = false
     this.interval = null
 
     doc.on('update', this.handlerUpdate)
@@ -71,11 +72,18 @@ export class EasyProvider extends Observable {
 
     this.out_handle(encoding.toUint8Array(encoderAwarenessQuery))
 
-    this.interval = setInterval(this.sendState, 50000)
+    this.interval = setInterval(this.sendState, 5000)
   }
 
 
   sendState = () => {
+    console.log("@tick", this.synced)
+
+    // if (this.synced && !this.synced_emitted) {
+    //   this.emit('synced', [true])
+    //   this.synced_emitted = true
+    // }
+
     const encoder = encoding.createEncoder()
     encoding.writeVarUint(encoder, messageSync)
     syncProtocol.writeSyncStep1(encoder, this.doc)
@@ -84,7 +92,10 @@ export class EasyProvider extends Observable {
 
   close = () => {
     clearInterval(this.interval)
-    this.destroy()    
+    this.awareness.off('update', this.awarenessUpdateHandler)
+    this.doc.off('update', this.handlerUpdate)
+
+    this.destroy()
   }
 
   /**
@@ -102,6 +113,7 @@ export class EasyProvider extends Observable {
         const syncMessageType = syncProtocol.readSyncMessage(decoder, encoder, this.doc, this)
         if (syncMessageType === syncProtocol.messageYjsSyncStep2 && !this.synced) {
           this.synced = true
+          this.emit('synced', [true])
         } else {
           console.log("@skipping msgsync", syncMessageType)
         }
@@ -127,6 +139,20 @@ export class EasyProvider extends Observable {
     console.log("@done", messageType)
   }
 
+
+  awarenessUpdateHandler = ({ added, updated, removed }, _origin) => {
+    const changedClients = added.concat(updated).concat(removed)
+
+    const encoder = encoding.createEncoder()
+    encoding.writeVarUint(encoder, messageAwareness)
+    encoding.writeVarUint8Array(
+      encoder,
+      awarenessProtocol.encodeAwarenessUpdate(this.awareness, changedClients)
+    )
+
+    this.out_handle(this, encoding.toUint8Array(encoder))
+  }
+
   handlerUpdate = (update, origin) => {
     if (origin !== this) {
       const encoder = encoding.createEncoder()
@@ -139,20 +165,20 @@ export class EasyProvider extends Observable {
 
 
 export const encodeToBase64 = (uint8Array) => {
-    const arrayBuffer = uint8Array.buffer;
-    const dataView = new DataView(arrayBuffer);
-    let binaryString = "";
-    for (let i = 0; i < dataView.byteLength; i++) {
-        binaryString += String.fromCharCode(dataView.getUint8(i));
-    }
-    return btoa(binaryString);
+  const arrayBuffer = uint8Array.buffer;
+  const dataView = new DataView(arrayBuffer);
+  let binaryString = "";
+  for (let i = 0; i < dataView.byteLength; i++) {
+    binaryString += String.fromCharCode(dataView.getUint8(i));
+  }
+  return btoa(binaryString);
 };
 
 export const decodeFromBase64 = (base64String) => {
-    const binaryString = atob(base64String);
-    const uint8Array = new Uint8Array(binaryString.length);
-    for (let i = 0; i < binaryString.length; i++) {
-        uint8Array[i] = binaryString.charCodeAt(i);
-    }
-    return uint8Array;
+  const binaryString = atob(base64String);
+  const uint8Array = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    uint8Array[i] = binaryString.charCodeAt(i);
+  }
+  return uint8Array;
 };

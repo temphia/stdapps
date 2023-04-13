@@ -9,10 +9,10 @@
   export let service: SimpleDocService;
   export let doc_data = {};
   export let doc_meta;
-  export let editor;
-  let doc: Document;
+  export let document: Document;
 
-  let contents = doc_data["contents"] || "";
+  let editor;
+  let yjs_state_b64 = doc_data["yjs_state_b64"];
 
   onMount(async () => {
     Quill.register("modules/cursors", QuillCursors);
@@ -30,16 +30,13 @@
       theme: "snow",
     });
 
-    editor.root.innerHTML = contents
-    newDoc();
+    await tick();
+
+    document = new Document(doc_meta["slug"], editor, service.muxer);
+    document.init(yjs_state_b64);
   });
 
-  onDestroy( () => doc && doc.close());
-
-  const newDoc = () => {
-    doc = new Document(doc_meta["slug"], editor, service.muxer);
-    doc.init(contents);
-  };
+  onDestroy(() => document && document.close());
 </script>
 
 <div
