@@ -2,6 +2,7 @@
   import type { Environment } from "../../lib";
   import Tailwind from "../common/tailwind.svelte";
   import Doc from "./doc.svelte";
+  import Listings from "./listings.svelte";
   import { SimpleDocService } from "./service/service";
 
   export let env: Environment;
@@ -31,10 +32,12 @@
   />
 </svelte:head>
 
-{#if loading}
+<!-- {#if loading}
   <div>Loading...</div>
 {:else}
   <Doc {service} />
-{/if}
+{/if} -->
+
+<Listings />
 
 <Tailwind />

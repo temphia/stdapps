@@ -1,9 +1,10 @@
 <script>
   import Tailwind from "../common/tailwind.svelte";
-
-  import SimpleDoc from "../simpledoc/index.svelte";
+  import Listings from "../simpledoc/listings.svelte";
 </script>
 
-<SimpleDoc />
+
+
+<Listings />
 
 <Tailwind />
