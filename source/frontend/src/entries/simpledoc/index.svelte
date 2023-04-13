@@ -11,6 +11,7 @@
   import AddDoc from "./panels/add_doc.svelte";
   import { formatValue } from "../simpletasks/service";
   import { KEY } from "./service";
+  import EditDoc from "./panels/edit_doc.svelte";
 
   export let env: Environment;
 
@@ -87,6 +88,9 @@
   <RootLayout name="Simpledoc" actions={{ "↻": load, "+": new_doc }}>
     <Listings
       {docs}
+      onEdit={(_doc) => {
+        modal.show_small(EditDoc, { ..._doc });
+      }}
       onClick={(_doc) => {
         selected = _doc;
       }}
