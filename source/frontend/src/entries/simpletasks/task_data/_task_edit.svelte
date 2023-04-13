@@ -1,15 +1,28 @@
 <script>
-  import Taptap from "../../common/taptap/taptap.svelte";
+  import Quill from "../../common/quill/quill.svelte";
 
   export let data = {};
+
+  let getHTML;
+
   export const getValue = () => {
     console.log("@editor", editor);
-    return editor.getHTML();
+    return getHTML();
   };
 
-  let editor;
-
-  $: console.log("@editor", data)
+  $: console.log("@editor", data);
 </script>
 
-<Taptap bind:editor content={data["content"]} />
+<svelte:head>
+  <link rel="stylesheet" href="//cdn.quilljs.com/1.3.6/quill.snow.css" />
+  <link
+    rel="stylesheet"
+    href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css"
+  />
+</svelte:head>
+
+<Quill contents={data["content"]} bind:getHTML />
