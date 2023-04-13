@@ -5,7 +5,6 @@ import {
   decodeFromBase64,
 } from "../../common/yjs/easyprovider";
 import * as Y from "yjs";
-import { generateId } from "../../common/id";
 import type { Environment } from "../../../lib";
 import type { DocMessage, SockdMuxer } from "./muxer";
 
@@ -27,9 +26,11 @@ export class Document {
     this.muxer.add_callback(this.id, this.handle_sockd_remote);
   }
 
-  init = async (initialData: any) => {
+  init = async (initialData: string) => {
     const ydoc = new Y.Doc();
     const type = ydoc.getText(initialData);
+
+    console.log("@with_initial_data", initialData)
 
     this.provider = new EasyProvider(this.id, ydoc, (data) => {
       if (!this.muxer.active) {

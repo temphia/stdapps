@@ -12,7 +12,7 @@
   export let editor;
   let doc: Document;
 
-  let contents = doc_data["contents"] || {};
+  let contents = doc_data["contents"] || "";
 
   onMount(async () => {
     Quill.register("modules/cursors", QuillCursors);
@@ -29,10 +29,12 @@
       placeholder: "Start collaborating...",
       theme: "snow",
     });
+
+    editor.root.innerHTML = contents
     newDoc();
   });
 
-  onDestroy(doc.close);
+  onDestroy( () => doc && doc.close());
 
   const newDoc = () => {
     doc = new Document(doc_meta["slug"], editor, service.muxer);

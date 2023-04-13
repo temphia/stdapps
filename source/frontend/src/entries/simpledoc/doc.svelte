@@ -29,7 +29,8 @@
   };
 
   const save = () => {
-    const contents = editor.getContents();
+    const contents = editor.root.innerHTML || "";
+
     ctx.get_modal().show_small(SaveDoc, {
       ctx,
       data: { ...data, contents },
