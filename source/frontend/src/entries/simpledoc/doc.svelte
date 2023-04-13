@@ -1,41 +1,30 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import Quill from "quill";
-  import QuillCursors from "quill-cursors";
-
-  import { Document } from "./service";
+  import { formatValue } from "../simpletasks/service";
+  import QuillEditor from "./_quill_editor.svelte";
   import type { SimpleDocService } from "./service/service";
 
   export let service: SimpleDocService;
+  export let slug: string;
 
-  let editor;
-  let doc: Document;
+  let data = {};
+  let loading = true;
 
-  onMount(async () => {
-    Quill.register("modules/cursors", QuillCursors);
+  const load = async () => {
+    const resp = await service.doc_api.get_doc_data(slug);
+    if (!resp.ok) {
+      console.log("@err", resp);
+      return;
+    }
 
-    editor = new Quill("#editor", {
-      modules: {
-        cursors: true,
-        toolbar: [
-          [{ header: [1, 2, false] }],
-          ["bold", "italic", "underline"],
-          ["image", "code-block"],
-        ],
-      },
-      placeholder: "Start collaborating...",
-      theme: "snow",
-    });
-
-    newDoc();
-  });
-
-  const newDoc = () => {
-    doc = new Document(editor, service.muxer);
-    doc.init();
+    data = formatValue(resp.data);
+    loading = false;
   };
+
+  load();
 </script>
 
-<div class="m-1 rounded bg-white h-full">
-  <div id="editor" class="p-1 h-full">document here</div>
-</div>
+{#if loading}
+  <div>loading...</div>
+{:else}
+  <QuillEditor {service} {data} />
+{/if}

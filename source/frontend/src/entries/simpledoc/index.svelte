@@ -81,7 +81,7 @@
   {#if loading}
     <div>Loading...</div>
   {:else if selected}
-    <Doc {service} />
+    <Doc {service} slug={selected} />
   {:else}
     <Listings
       {docs}

@@ -18,8 +18,8 @@ export class Document {
   id: string;
   qbind: QuillBinding;
 
-  constructor(editor: any, muxer: SockdMuxer) {
-    this.id = "testdocid" // generateId();
+  constructor(id: string, editor: any, muxer: SockdMuxer) {
+    this.id = id
 
     this.muxer = muxer;
     this.editor = editor;
@@ -41,6 +41,8 @@ export class Document {
     this.qbind = new QuillBinding(type, this.editor, this.provider.awareness);
 
     this.provider.start();
+
+    console.log("@debug_simple_doc", this)
   };
 
   private handle_sockd_remote = (msg: DocMessage) => {
