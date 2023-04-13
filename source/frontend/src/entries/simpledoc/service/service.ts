@@ -5,6 +5,7 @@ import { SockdMuxer } from "./muxer";
 export class SimpleDocService {
   env: Environment;
   muxer: SockdMuxer;
+  doc_api: DocApi;
 
   constructor(env: Environment) {
     this.env = env;
@@ -17,11 +18,13 @@ export class SimpleDocService {
       return false;
     }
 
+    const data = resp.data["data"] || {};
+
     const eam = await this.env.GetExecApiManager();
-    this.muxer = new SockdMuxer(
-      resp.data["data"]["room_tkt"],
-      eam.new_sockd_room
-    );
+
+    this.muxer = new SockdMuxer(data["room_tkt"], eam.new_sockd_room);
+
+    this.doc_api = new DocApi(this.env, eam.new_plug_state(data["plug_state"]));
 
     await this.muxer.init();
 
@@ -33,8 +36,9 @@ export class DocApi {
   env: Environment;
   state_api: AdminPlugStateTktAPI;
 
-  constructor(env: Environment) {
+  constructor(env: Environment, state_api: AdminPlugStateTktAPI) {
     this.env = env;
+    this.state_api = state_api;
   }
 
   list_docs = () => {
