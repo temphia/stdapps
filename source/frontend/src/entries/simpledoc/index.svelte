@@ -46,13 +46,9 @@
           return;
         }
         modal.close_small();
-        service.doc_api.list_docs();
+        load()
       },
     });
-
-    loading = true;
-
-    loading = false;
   };
 
   setContext("__simpledoc__", {
@@ -80,7 +76,13 @@
 {#if loading}
   <div>Loading...</div>
 {:else if selected}
-  <Doc {service} doc_meta={selected} />
+  <Doc
+    {service}
+    doc_meta={selected}
+    goBack={() => {
+      selected = null;
+    }}
+  />
 {:else}
   <RootLayout name="Simpledoc" actions={{ "↻": load, "+": new_doc }}>
     <Listings

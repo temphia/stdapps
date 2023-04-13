@@ -7,6 +7,8 @@
   export let service: SimpleDocService;
   export let doc_meta;
 
+  export let goBack;
+
   let data = {};
   let loading = true;
 
@@ -24,7 +26,7 @@
 
   load();
 
-  const actions = { "↻": load, "💾": () => {}, "🏠": () => {} };
+  const actions = { "↻": load, "💾": () => {}, "🏠": () => { goBack && goBack()} };
 </script>
 
 {#if loading}
