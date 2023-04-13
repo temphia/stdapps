@@ -15,7 +15,13 @@
       "web_files": {
         "client.js": "client.js",
         "client.css": "client.css"
-      }
+      },
+
+      "resources": [
+        {
+          "name": "freeboardsync",
+          "ref_name": "freeboardsync"
+        }]
     }
   ]
 }
