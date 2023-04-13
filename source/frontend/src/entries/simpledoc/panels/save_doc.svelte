@@ -25,9 +25,16 @@
   <div>Loading..</div>
 {:else}
   <div class="flex justify-center items-center flex-col">
-    <p>{typeof message === "object" ? JSON.stringify(message) : message}</p>
+    
+      <code class="m-4 bg-gray-50 rounded">
+        <pre>
+          {typeof message === "object" ? JSON.stringify(message) : message}
+        </pre>
+      </code>
+    
+
     <button
-      class="p-1 rounded bg-blue-500 hover:bg-blue-700 text-white"
+      class="p-1 rounded bg-blue-500 hover:bg-blue-700 text-white mt-10"
       on:click={() => {
         ctx.get_modal().close_small();
       }}>close</button

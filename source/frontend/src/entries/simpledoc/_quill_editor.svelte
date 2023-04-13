@@ -12,7 +12,11 @@
   export let document: Document;
 
   let editor;
-  let yjs_state_b64 = doc_data["yjs_state_b64"];
+
+  const contents = doc_data["contents"] || {};
+  
+  let yjs_state_b64 = contents["yjs_state_b64"];
+  
 
   onMount(async () => {
     Quill.register("modules/cursors", QuillCursors);
