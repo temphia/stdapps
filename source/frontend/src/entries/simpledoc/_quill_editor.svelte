@@ -7,12 +7,13 @@
   import type { SimpleDocService } from "./service/service";
 
   export let service: SimpleDocService;
-  export let data = {};
+  export let doc_data = {};
+  export let doc_meta;
 
   let editor;
   let doc: Document;
 
-  let contents = data["contents"] || "";
+  let contents = doc_data["contents"] || "";
 
   onMount(async () => {
     Quill.register("modules/cursors", QuillCursors);
@@ -36,7 +37,7 @@
   });
 
   const newDoc = () => {
-    doc = new Document(data["slug"], editor, service.muxer);
+    doc = new Document(doc_meta["slug"], editor, service.muxer);
     doc.init();
   };
 </script>

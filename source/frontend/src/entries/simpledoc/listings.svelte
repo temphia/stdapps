@@ -21,7 +21,7 @@
           >
             <button
               class="flex items-center font-medium text-gray-800"
-              on:click={() => onClick(doc["slug"])}
+              on:click={() => onClick(doc)}
             >
               <svg
                 class="w-5 h-5 fill-current mr-2"

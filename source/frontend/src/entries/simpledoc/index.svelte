@@ -77,19 +77,19 @@
 
 <ModalCompo bind:modal />
 
-<RootLayout name="Simpledoc" actions={{ "↻": load, "+": new_doc }}>
-  {#if loading}
-    <div>Loading...</div>
-  {:else if selected}
-    <Doc {service} slug={selected} />
-  {:else}
+{#if loading}
+  <div>Loading...</div>
+{:else if selected}
+  <Doc {service} doc_meta={selected} />
+{:else}
+  <RootLayout name="Simpledoc" actions={{ "↻": load, "+": new_doc }}>
     <Listings
       {docs}
-      onClick={(slug) => {
-        selected = slug;
+      onClick={(_doc) => {
+        selected = _doc;
       }}
     />
-  {/if}
-</RootLayout>
+  </RootLayout>
+{/if}
 
 <Tailwind />

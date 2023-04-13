@@ -1,16 +1,18 @@
 <script lang="ts">
+  import RootLayout from "../common/root_layout.svelte";
   import { formatValue } from "../simpletasks/service";
   import QuillEditor from "./_quill_editor.svelte";
   import type { SimpleDocService } from "./service/service";
 
   export let service: SimpleDocService;
-  export let slug: string;
+  export let doc_meta;
 
   let data = {};
   let loading = true;
 
   const load = async () => {
-    const resp = await service.doc_api.get_doc_data(slug);
+    loading = true
+    const resp = await service.doc_api.get_doc_data(doc_meta["slug"]);
     if (!resp.ok) {
       console.log("@err", resp);
       return;
@@ -21,10 +23,14 @@
   };
 
   load();
+
+  const actions = { "↻": load, "💾": () => {}, "🏠": () => {} };
 </script>
 
 {#if loading}
   <div>loading...</div>
 {:else}
-  <QuillEditor {service} {data} />
+  <RootLayout name="Simpledoc [{doc_meta['name']}]" {actions}>
+    <QuillEditor {service} doc_data={data} {doc_meta} />
+  </RootLayout>
 {/if}
