@@ -11,3 +11,6 @@ files:
   server.js: source/backend/freeboard/server.js
   client.js: source/frontend/public/build/freeboard.js
   client.css: source/frontend/public/build/freeboard.css
+  katex.css: assets/katex.min.css
+  monokai-sublime.css: assets/monokai-sublime.min.css
+  quill_snow.css: assets/quill.snow.css

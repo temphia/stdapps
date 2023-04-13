@@ -4,7 +4,7 @@
   import QuillCursors from "quill-cursors";
 
   export let contents = "";
-  export let editor;
+  export let editor = null;
   export const getHTML = () => editor.root.innerHTML;
 
   onMount(async () => {

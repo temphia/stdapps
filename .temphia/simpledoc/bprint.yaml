@@ -11,3 +11,6 @@ files:
   server.js: source/backend/simpledoc/server.js
   client.js: source/frontend/public/build/simpledoc.js
   client.css: source/frontend/public/build/simpledoc.css
+  katex.css: assets/katex.min.css
+  monokai-sublime.css: assets/monokai-sublime.min.css
+  quill_snow.css: assets/quill.snow.css
