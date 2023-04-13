@@ -28,6 +28,7 @@ export class EasyProvider extends Observable {
     this.name = name
     this.out_handle = out_handle
     this.synced = false
+    this.interval = null
 
     doc.on('update', this.handlerUpdate)
     this.awareness = new awarenessProtocol.Awareness(doc);
@@ -70,7 +71,7 @@ export class EasyProvider extends Observable {
 
     this.out_handle(encoding.toUint8Array(encoderAwarenessQuery))
 
-    setInterval(this.sendState, 50000)
+    this.interval = setInterval(this.sendState, 50000)
   }
 
 
@@ -79,6 +80,11 @@ export class EasyProvider extends Observable {
     encoding.writeVarUint(encoder, messageSync)
     syncProtocol.writeSyncStep1(encoder, this.doc)
     this.out_handle(encoding.toUint8Array(encoder))
+  }
+
+  close = () => {
+    clearInterval(this.interval)
+    this.destroy()    
   }
 
   /**
