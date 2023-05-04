@@ -1,11 +1,11 @@
 <script lang="ts">
   import { getContext } from "svelte";
-  import AutoTable from "../common/autotable/autotable.svelte";
   import RootLayout from "../common/root_layout.svelte";
   import Board from "./board.svelte";
   import NewBoard from "./panels/new_board.svelte";
   import { Context, KEY } from "./service";
   import { formatBoard } from "./service/format";
+  import SimpleCard from "../common/simple_card.svelte";
 
   const ctx = getContext(KEY) as Context;
   const service = ctx.get_service();
@@ -38,7 +38,7 @@
           name: data["name"],
         });
 
-        modal.close_small()
+        modal.close_small();
 
         load();
       },
@@ -60,35 +60,20 @@
     {#if loading}
       <div>Loading</div>
     {:else}
-      <AutoTable
-        datas={boards}
-        actions={[
-          {
-            Name: "Explore",
-            Action: (id, data) => {
-              selectd_board = data;
-              selected = id;
-            },
-            Class: "bg-green-400",
-            icon: "link",
-          },
+      <div class="flex gap-2 flex-wrap justify-center p-1">
+        {#each boards as board}
+          <SimpleCard
+            info=""
+            name={board["name"]}
+            on:card_click={() => {
 
-          {
-            Name: "Delete",
-            Action: async (id) => {
-              await service.delete_board(id)
-              load()
-            },
-            Class: "bg-red-400",
-            icon: "trash",
-          },
-        ]}
-        action_key="key"
-        key_names={[
-          ["key", "Key"],
-          ["name", "Name"],
-        ]}
-      />
+              console.log("@@@@", board)
+              selected = board["key"];
+              selectd_board = board;
+            }}
+          />
+        {/each}
+      </div>
     {/if}
   </RootLayout>
 {/if}
