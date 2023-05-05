@@ -1,11 +1,11 @@
 import type { Environment } from "../../../lib";
-import type { DataAPI } from "temphia-frontend/dist/cjs/apiv2/data";
-import type { ExecAM } from "temphia-frontend/dist/cjs/exec/exec_am";
+import type { DataAPI } from "@temphia/temphia/dist/cjs/apiv2/data";
+import type { ExecAM } from "@temphia/temphia/dist/cjs/exec/exec_am";
 import {
   MESSAGE_SERVER_PUBLISH,
   Sockd,
   SockdMessage,
-} from "temphia-frontend/dist/cjs/sockd";
+} from "@temphia/temphia/dist/cjs/sockd";
 import { Writable, writable } from "svelte/store";
 import { extractLatLongFromWKT } from "../map/renderer/utils";
 

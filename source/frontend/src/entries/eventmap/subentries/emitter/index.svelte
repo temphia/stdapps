@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Environment } from "temphia-frontend/dist/cjs/engine/environment";
+  import type { Environment } from "@temphia/temphia/dist/cjs/engine/environment";
   import Tailwind from "../../../common/tailwind.svelte";
   import Emitter from "./emitter.svelte";
   export let env: Environment;

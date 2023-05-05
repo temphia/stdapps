@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Environment } from "temphia-frontend/dist/cjs/engine/environment";
+  import type { Environment } from "@temphia/temphia/dist/cjs/engine/environment";
   import Location from "./_location.svelte";
   export let env: Environment;
   export let event_types = [];

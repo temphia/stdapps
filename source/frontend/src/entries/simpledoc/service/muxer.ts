@@ -1,4 +1,4 @@
-import type { Sockd, SockdMessage } from "temphia-frontend/dist/cjs/sockd";
+import type { Sockd, SockdMessage } from "@temphia/temphia/dist/cjs/sockd";
 
 export type sockd_builder = (
   ticket: string,

@@ -1,4 +1,4 @@
-import type { AdminPlugStateTktAPI } from "temphia-frontend/dist/cjs/apiv2";
+import type { AdminPlugStateTktAPI } from "@temphia/temphia/dist/cjs/apiv2";
 import type { Environment } from "../../../lib";
 import { SockdMuxer } from "./muxer";
 

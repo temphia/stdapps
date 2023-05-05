@@ -1,4 +1,4 @@
-import type { AdminPlugStateTktAPI } from "temphia-frontend/dist/cjs/apiv2/admin/plug_state";
+import type { AdminPlugStateTktAPI } from "@temphia/temphia/dist/cjs/apiv2/admin/plug_state";
 import type { Environment } from "../../../lib";
 
 export class TasksService {
