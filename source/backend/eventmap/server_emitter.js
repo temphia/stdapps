@@ -4,7 +4,7 @@ function action_emit(params) {
         throw err1
     }
 
-    const [resp, err2] = self.module_execute(db, "new_row", JSON.parse(params.data))
+    const [resp, err2] = self.module_execute(db, "NewRow", JSON.parse(params.data))
     if (err2) {
         return err2
     }
@@ -19,7 +19,7 @@ function action_load(params) {
         throw err1
     }
 
-    const [resp, err2] = self.module_execute(db, "simple_query", {
+    const [resp, err2] = self.module_execute(db, "TableQuery", {
         table: "ettypes",
     })
 
