@@ -39,6 +39,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "@krowten/svelte-heroicons": "^0.1.0",
     "@rollup/plugin-replace": "^5.0.2",
     "@temphia/temphia": "^1.0.2",
     "@types/react": "^18.0.15",
