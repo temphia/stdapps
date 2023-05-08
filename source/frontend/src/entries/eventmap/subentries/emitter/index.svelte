@@ -16,7 +16,7 @@
     if (!resp.ok) {
       message = resp.data;
     } else {
-      event_types = (resp.data["data"] || {})["event_types"] || [];
+      event_types = (resp["data"] || {})["event_types"] || [];
     }
     loading = false;
   };

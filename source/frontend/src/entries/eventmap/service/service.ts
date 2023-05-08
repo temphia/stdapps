@@ -44,7 +44,7 @@ export class EventmapService {
       return resp.data;
     }
 
-    const dbtoken = resp.data.data["dbtoken"];
+    const dbtoken = (resp["data"] || {})["dbtoken"];
 
     const eam: ExecAM | any = await this.env.GetExecApiManager();
 

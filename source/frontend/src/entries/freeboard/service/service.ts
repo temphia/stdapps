@@ -16,7 +16,7 @@ export class FreeBoard {
     if (!resp.ok) {
       return;
     }
-    const data = resp.data["data"] || {};
+    const data = resp["data"] || {};
 
     const execam = await this.env.GetExecApiManager();
     this.state_api = execam.new_plug_state(data["state_tkt"]);

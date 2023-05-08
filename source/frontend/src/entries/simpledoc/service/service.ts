@@ -18,7 +18,7 @@ export class SimpleDocService {
       return false;
     }
 
-    const data = resp.data["data"] || {};
+    const data = resp["data"] || {};
 
     const eam = await this.env.GetExecApiManager();
 
