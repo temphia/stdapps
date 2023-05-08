@@ -1,19 +1,33 @@
 function action_emit(params) {
-    const [resp, err] = self.module_execute("maindb", "new_row", "0/events", JSON.parse(utils.ab2str(params.data)))
-    if (err) {
-        return utils.err_response(err)
+    const [db, err1] = self.new_module("maindb", {})
+    if (err1) {
+        throw err1
     }
 
-    return utils.ok_response(resp)
+    const [resp, err2] = self.module_execute(db, "new_row", JSON.parse(params.data))
+    if (err2) {
+        return err2
+    }
+
+    return (resp)
 }
 
 function action_load(params) {
-    const [resp, err] = self.module_execute("maindb", "simple_query", "0/ettypes", {})
-    if (err) {
-        return utils.err_response(err)
+
+    const [db, err1] = self.new_module("maindb", {})
+    if (err1) {
+        throw err1
     }
 
-    return utils.ok_response({
+    const [resp, err2] = self.module_execute(db, "simple_query", {
+        table: "ettypes",
+    })
+
+    if (err2) {
+        throw err2
+    }
+
+    return ({
         event_types: resp["rows"] || [],
     })
 }

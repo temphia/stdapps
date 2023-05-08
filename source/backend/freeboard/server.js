@@ -4,12 +4,12 @@ function action_load(params) {
     const [itkt, ierr] = plugkv.get_ticket({})
     if (ierr) {
         core.log("@merr" + ierr)
-        return utils.err_response(ierr)
+        return (ierr)
     }
 
     core.log("@loaded_end")
 
-    return utils.ok_response({
+    return {
         state_tkt: itkt,
-    })
+    }
 }
