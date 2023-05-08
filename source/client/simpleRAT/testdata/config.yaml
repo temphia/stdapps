@@ -1,0 +1,13 @@
+server: "xyz"
+device_token: "xxxxxxyyyyy"
+services:
+  first:
+    enabled: false
+    poll_time: 3000
+    push_mode: "sockd"
+    code: >
+      (function(){
+        return {
+          "test": 1,
+        }
+      }())
