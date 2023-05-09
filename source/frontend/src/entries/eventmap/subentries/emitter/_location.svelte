@@ -65,7 +65,7 @@
           mark();
         }}
       >
-        <Icon name="location-marker" class="h-4 w-4" />
+        <Icon name="map-pin" class="h-4 w-4" />
       </button>
     </div>
   </LeafletMap>
