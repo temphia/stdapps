@@ -4,7 +4,10 @@ function action_emit(params) {
         throw err1
     }
 
-    const [resp, err2] = self.module_execute(db, "NewRow", JSON.parse(params.data))
+    const [resp, err2] = self.module_execute(db, "NewRow", {
+        "table": "events",
+        "data": params.data,
+    })
     if (err2) {
         return err2
     }
