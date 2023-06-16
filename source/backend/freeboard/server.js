@@ -1,7 +1,9 @@
 function action_load(params) {
     core.log("@loaded_start")
 
-    const [itkt, ierr] = plugkv.get_ticket({})
+
+    const [itkt, ierr] = self.module_ticket("self_plugstate", {})
+
     if (ierr) {
         core.log("@merr" + ierr)
         return (ierr)
