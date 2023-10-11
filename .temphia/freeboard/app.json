@@ -1,0 +1,39 @@
+{
+  "objects": {
+    "mainapp": {
+      "type": "agent"
+    }
+  },
+  "steps": [
+    {
+      "name": "add_main_agent",
+      "type": "new_agent",
+      "data": {
+        "name": "default",
+        "type": "app",
+        "renderer": "era",
+        "executor": "javascript1",
+        "web_entry": "freeboard.main",
+        "web_script": "client.js",
+        "web_style": "client.css,katex.css,monokai-sublime.css,quill_snow.css",
+        "entry_file": "server.js",
+        "web_loader": "std.loader",
+        "web_files": {
+          "client.js": "client.js",
+          "client.css": "client.css",
+          "katex.css": "katex.css",
+          "monokai-sublime.css": "monokai-sublime.css",
+          "quill_snow.css": "quill_snow.css"
+        }
+      }
+    },
+    {
+      "name": "add_sockd_room",
+      "type": "new_room",
+      "data": {
+        "name": "freeboardsync",
+        "type": "room"
+      }
+    }
+  ]
+}
