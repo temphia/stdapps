@@ -1,6 +1,6 @@
 name: Freeboard
 slug: freeboard
-type: bundle
+type: app
 description: Freeboard is a canvas for your ideas.
 version: current
 env_file: .temphia/freeboard/.env

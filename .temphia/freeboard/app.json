@@ -11,13 +11,15 @@
       "data": {
         "name": "default",
         "type": "app",
-        "renderer": "era",
+        "renderer": "spa",
         "executor": "javascript1",
-        "web_entry": "freeboard.main",
-        "web_script": "client.js",
-        "web_style": "client.css,katex.css,monokai-sublime.css,quill_snow.css",
         "entry_file": "server.js",
-        "web_loader": "std.loader",
+        "web_options": {
+          "web_entry": "freeboard.main",
+          "web_script": "client.js",
+          "web_style": "client.css,katex.css,monokai-sublime.css,quill_snow.css",
+          "exec_loader": "std.loader"
+        },
         "web_files": {
           "client.js": "client.js",
           "client.css": "client.css",
@@ -29,7 +31,7 @@
     },
     {
       "name": "add_sockd_room",
-      "type": "new_room",
+      "type": "new_resource",
       "data": {
         "name": "freeboardsync",
         "type": "room"
